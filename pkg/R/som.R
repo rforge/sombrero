@@ -1,4 +1,6 @@
 ## SOM algorithm functions
+
+# Functions to manipulate the grid
 calculateRadius <- function(the.grid, radius.type, ind.t, maxit) {
   ## TODO: implement other radius types
   # ind.t: iteration index
@@ -26,12 +28,18 @@ selectNei <- function(the.neuron, the.grid, radius) {
   the.nei
 }
 
+# Functions to manipulate objects in the input space
+distElt <- function(x, y, som.type="numeric") {
+  if (som.type=="numeric") d2xy <- sum((x-y)^2)
+  d2xy
+}
+
 oneObsAffectation <- function(x.new, prototypes, type, x.data=NULL) {
   # x.data: only used if type=relational
   ## TODO: implement other types such as relational
   if (type=="numeric") {
-    the.neuron <- which.min(apply(prototypes, 1, function(x){
-      sum((x-x.new)^2)
+    the.neuron <- which.min(apply(prototypes, 1, function(x) {
+      distElt(x,x.new)
     }))
   }
   the.neuron
@@ -43,6 +51,7 @@ calculateClusterEnergy <- function(cluster, x.data, clustering, prototypes,
     if (parameters$radius.type=="letremy") {
       the.nei <- selectNei(cluster, parameters$the.grid, radius)
       if (sum(clustering%in%the.nei)>0) {
+        # FIX IT!! Use the distElt function instead
         sum((x.data[which(clustering%in%the.nei),]-
                tcrossprod(rep(1,sum(clustering%in%the.nei)),
                           prototypes[cluster,]))^2)
@@ -129,6 +138,7 @@ trainNumericSOM <- function(x.data, parameters) {
                               ind.t, parameters$maxit)
     the.nei <- selectNei(winner, parameters$the.grid, radius)
     # Letremy's heuristic
+    # FIX IT!!! Use the distElt function instead
     epsilon <- 0.3/(1+0.2*ind.t/(parameters$the.grid$dim[1]*
                                parameters$the.grid$dim[2]))
     prototypes[the.nei,] <- (1-epsilon)*prototypes[the.nei,] +

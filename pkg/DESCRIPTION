@@ -1,13 +1,13 @@
 Package: SOMbrero
 Title: SOM Bound to Realize Euclidean and Relational Outputs
-Version: 0.2
-Date: 2013-04-15
+Version: 0.2-2
+Date: 2013-05-20
 Author: Laura Bendhaiba <laurabendhaiba@gmail.com>,
         Madalina Olteanu <madalina.olteanu@univ-paris1.fr>,
         Nathalie Villa-Vialaneix <nathalie.villa@univ-paris1.fr>
 Maintainer: Nathalie Villa-Vialaneix <nathalie.villa@univ-paris1.fr>
 Description: Implement the stochastic (also called on-line) Self-Organising Map
              (SOM) algorithm for numeric and relational data
-Depends: wordcloud, igraph (>= 0.6)
+Depends: wordcloud, igraph (>= 0.6), RColorBrewer, scatterplot3d
 License: GPL-2
 URL: http://www.nathalievilla.org/spip.php?article90

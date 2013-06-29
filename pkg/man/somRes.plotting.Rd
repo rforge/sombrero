@@ -190,5 +190,3 @@ plot(iris.som, what="obs", type="names")
 # on an additional variable: the flower species
 plot(iris.som, what="add", type="pie", variable=iris$Species)
 }
-
-% add keyword also ?

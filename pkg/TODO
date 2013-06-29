@@ -19,10 +19,9 @@
 ** implement projectGraph
 ** some graphical functions would not work with other topologies
 
-* prototypes clustering
-
 * quality functions
-** quantization error
 ** kaski lagus
 ** inter-neurons variance
-** topological error
+
+* global
+** make a function for initializing colors init.color(clustering, def.color)

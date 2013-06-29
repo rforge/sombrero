@@ -18,7 +18,15 @@ Produce graphics to help interpreting a \code{somRes} object.
                           if (type=="boxplot") 1:min(5,ncol(x$data)) else 1,
                         my.palette=NULL, is.scaled=TRUE, proportional=TRUE,
                         print.title=FALSE, s.radius=1, pie.graph=FALSE,
-                        pie.variable=NULL, \dots)
+                        pie.variable=NULL,
+                        the.titles=if (what!="energy") 
+                          switch(type,
+                                          "graph"=
+                                            1:prod(x$parameters$the.grid$dim),
+                                          paste("Cluster",
+                                                1:prod(x$parameters$
+                                                         the.grid$dim))),
+                        \ldots)
 }
 
 \arguments{
@@ -57,6 +65,7 @@ Produce graphics to help interpreting a \code{somRes} object.
   \item{pie.variable}{The variable needed to plot the pies when 
   \code{what="add"}, \code{type="graph"} and argument \code{pie.graph} is set 
   to \code{TRUE}.}
+  \item{the.titles}{The titles to be printed for each neuron.}
   \item{\dots}{Further arguments to be passed to the underlined plot function
   (that can be \code{\link{plot}}, \code{\link{barplot}}, \code{\link{pie}}...
   depending on \code{type}; see \code{\link{somRes.plotting}} for further
@@ -64,7 +73,7 @@ Produce graphics to help interpreting a \code{somRes} object.
 }
 
 \details{
-See \code{\link{somRes.plotting}} for further details. % add link
+See \code{\link{somRes.plotting}} for further details.
 }
 
 \author{Laura Bendhaiba \email{laurabendhaiba@gmail.com}\cr

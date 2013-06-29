@@ -18,9 +18,10 @@ parameters given to the algorithm (see \code{\link{initSOM}} and
 \tabular{ll}{
 Package: \tab SOMbrero\cr
 Type: \tab Package\cr
-Version: \tab 0.2\cr
-Date: \tab 2013-04-18\cr
-License: \tab SOMbrero \url{http://www.nathalievilla.org/spip.php?article90} \cr
+Version: \tab 0.2-2\cr
+Date: \tab 2013-05-20\cr
+License: GPL-2\cr
+URL: \tab SOMbrero \url{http://www.nathalievilla.org/spip.php?article90} \cr
 }
 }
 
