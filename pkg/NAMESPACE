@@ -3,6 +3,7 @@
 export(initGrid)
 export(initSOM)
 export(trainSOM)
+export(projectGraph)
 
 # myGrid S3 functions
 S3method(print,myGrid)
@@ -17,3 +18,4 @@ S3method(summary,paramSOM)
 S3method(print,somRes)
 S3method(summary,somRes)
 S3method(plot,somRes)
+S3method(predict,somRes)

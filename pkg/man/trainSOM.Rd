@@ -25,7 +25,7 @@ trainSOM(x.data,
   \item{dimension}{a vector with two dimensions specifying the number of rows
   and columns of the grid.}
   \item{maxit}{the number of iterations of the algorithm.}
-  \item{...}{further arguments to be passed to the function
+  \item{...}{Further arguments to be passed to the function
   \code{\link{initSOM}} for specifying the parameters of the algorithm.}
   \item{x, object}{an object of class \code{somRes}}
 }
@@ -49,18 +49,16 @@ helpful to see which variables participate to the clustering.
 Teuvo Kohonen (2001) Self-Organizing Maps. Springer-Verlag, Berlin and 
 Heidelberg, 3rd edition.
 }
-\author{Laura Bendhaiba <laurabendhaiba@gmail.com>
-
-Madalina Olteanu <madalina.olteanu@univ-paris1.fr>
-
-Nathalie Villa-Vialaneix <nathalie.villa@univ-paris1.fr>
+\author{Laura Bendhaiba \email{laurabendhaiba@gmail.com}\cr
+Madalina Olteanu \email{madalina.olteanu@univ-paris1.fr}\cr
+Nathalie Villa-Vialaneix \email{nathalie.villa@univ-paris1.fr}
 }
-\note{Warning! Recording  intermediate backups with the argument \code{nb.save}
+\note{Warning! Recording intermediate backups with the argument \code{nb.save}
 can strongly increase the computational time since calculating the entire
 clustering and the energy is time consumming. Use this option with care and only
 when it is strictly necessary.}
 \seealso{
-See \link{initSOM} to initialize the algorithm parameters.
+See \link{plot.somRes} to plot the outputs of the algorithm.
 }
 \examples{
 # Run trainSOM algorithm on the iris data with 500 iterations

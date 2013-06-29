@@ -1,4 +1,4 @@
-library(stochSOM)
+library(SOMbrero)
 # Test different scaling
 # The user must check by himself that the prototypes have values in accordance
 # to the data: the test file print the prototypes summary as well as three
@@ -14,7 +14,7 @@ par(mfrow=c(1,3))
 ## no scaling
 set.seed(4031731)
 my.som <- trainSOM(x.data=the.data, dimension=c(5,5), nb.save=10, maxit=2000,
-                   scale="none")
+                   scaling="none")
 print(summary(my.som$prototypes))
 tra <- NULL
 for (i in c(1,6,11,16,21)){
@@ -40,7 +40,7 @@ invisible(sapply(1:my.som$parameters$nb.save, function(ind){
 ## centering
 set.seed(17031333)
 my.som <- trainSOM(x.data=the.data, dimension=c(5,5), nb.save=10, maxit=2000,
-                   scale="center")
+                   scaling="center")
 print(summary(my.som$prototypes))
 tra <- NULL
 for (i in c(1,6,11,16,21)){
@@ -66,7 +66,7 @@ invisible(sapply(1:my.som$parameters$nb.save, function(ind){
 # center and reduce
 set.seed(17031334)
 my.som <- trainSOM(x.data=the.data, dimension=c(5,5), nb.save=10, maxit=2000,
-                   scale="unitvar")
+                   scaling="unitvar")
 print(summary(my.som$prototypes))
 tra <- NULL
 for (i in c(1,6,11,16,21)){

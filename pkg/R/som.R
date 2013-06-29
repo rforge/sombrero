@@ -20,8 +20,8 @@ calculateRadius <- function(the.grid, radius.type, ind.t, maxit) {
 }
 
 selectNei <- function(the.neuron, the.grid, radius) {
-  the.dist <- as.matrix(dist(the.grid$coord, diag=TRUE,
-                             upper=TRUE))[the.neuron,]
+  the.dist <- as.matrix(dist(the.grid$coord, diag=TRUE, upper=TRUE,
+                             method=the.grid$dist.type))[the.neuron,]
   the.nei <- which(the.dist<=radius)
   the.nei
 }
@@ -70,7 +70,7 @@ trainNumericSOM <- function(x.data, parameters) {
   # documented
 
   ## Preprocess the data: scaling here
-  norm.x.data <- switch(parameters$scale,
+  norm.x.data <- switch(parameters$scaling,
                         "unitvar"=scale(x.data, center=TRUE, scale=TRUE),
                         "center"=scale(x.data, center=TRUE, scale=FALSE),
                         "none"=as.matrix(x.data))
@@ -91,7 +91,7 @@ trainNumericSOM <- function(x.data, parameters) {
                            parameters$the.grid$dim[2], replace=TRUE),]
     }
   } else {
-    prototypes <- switch(parameters$scale,
+    prototypes <- switch(parameters$scaling,
                          "unitvar"=scale(parameters$proto0, 
                                          center=apply(x.data,2,mean),
                                          scale=apply(x.data,2,sd)),
@@ -141,7 +141,7 @@ trainNumericSOM <- function(x.data, parameters) {
     }
     if (parameters$nb.save>1) {
       if(ind.t %in% backup$steps) {
-        out.proto <- switch(parameters$scale,
+        out.proto <- switch(parameters$scaling,
                             "unitvar"=scale(prototypes, 
                                             center=-apply(x.data,2,mean)/
                                               apply(x.data,2,sd),
@@ -166,7 +166,7 @@ trainNumericSOM <- function(x.data, parameters) {
         energy <- backup$energy[ind.s]
       }
     } else if (ind.t==parameters$maxit) {
-      out.proto <- switch(parameters$scale,
+      out.proto <- switch(parameters$scaling,
                           "unitvar"=scale(prototypes, 
                                           center=-apply(x.data,2,mean)/
                                             apply(x.data,2,sd),
@@ -248,27 +248,27 @@ summary.somRes <- function(object, ...){
   cat("\n")
 }
 
-predict.somRes <- function(sommap, x.new) {
+predict.somRes <- function(object, x.new, ...) {
   ## TODO: implement other types such as relational
-  if(sommap$parameters$type=="numeric") {
-    norm.x.new <- switch(sommap$parameters$scale,
+  if(object$parameters$type=="numeric") {
+    norm.x.new <- switch(object$parameters$scaling,
                          "unitvar"=scale(x.new,
-                                         center=apply(sommap$data,2,mean),
-                                         scale=apply(sommap$data,2,sd)),
+                                         center=apply(object$data,2,mean),
+                                         scale=apply(object$data,2,sd)),
                          "center"=scale(x.new,
-                                        center=apply(sommap$data,2,mean),
+                                        center=apply(object$data,2,mean),
                                         scale=FALSE),
                          "none"=as.matrix(x.new))
-    norm.proto <- switch(sommap$parameters$scale,
-                         "unitvar"=scale(sommap$prototypes, 
-                                         center=apply(sommap$data,2,mean),
-                                         scale=apply(sommap$data,2,sd)),
-                         "center"=scale(sommap$prototypes, 
-                                        center=apply(sommap$data,2,mean),
+    norm.proto <- switch(object$parameters$scaling,
+                         "unitvar"=scale(object$prototypes, 
+                                         center=apply(object$data,2,mean),
+                                         scale=apply(object$data,2,sd)),
+                         "center"=scale(object$prototypes, 
+                                        center=apply(object$data,2,mean),
                                         scale=FALSE),
-                         "none"=sommap$prototypes)
+                         "none"=object$prototypes)
     winners <- apply(norm.x.new, 1, oneObsAffectation,
-                     prototypes=norm.proto, type=sommap$parameters$type)
+                     prototypes=norm.proto, type=object$parameters$type)
   }
   winners
 }

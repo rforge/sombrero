@@ -1,20 +1,21 @@
 ## These functions handle SOM learning
-initSOM <- function(dimension=c(5,5), topo=c("square"), 
+initSOM <- function(dimension=c(5,5), topo=c("square"),
+                    dist.type=c("maximum","euclidean","manhattan","canberra",
+                                "binary","minkowski"),
                     type=c("numeric", "relational"), mode=c("online"), 
                     maxit=500, nb.save=0, verbose=FALSE, proto0=NULL, 
                     init.proto=c("random","obs"), 
-                    scale=c("unitvar","none","center"), 
-                    radius.type=c("letremy")){
+                    scaling=c("unitvar","none","center"), 
+                    radius.type=c("letremy")) {
   
-  params <- list("the.grid"=initGrid(dimension,match.arg(topo,c("square"))),
-                 "type"=match.arg(type,c("numeric", "relational")),
-                 "mode"=match.arg(mode,c("online")), maxit=maxit,
+  params <- list("the.grid"=initGrid(dimension,match.arg(topo),
+                                     match.arg(dist.type)),
+                 "type"=match.arg(type), "mode"=match.arg(mode), maxit=maxit,
                  nb.save=nb.save, "proto0"=proto0,
-                 init.proto=match.arg(init.proto,c("random","obs")),
-                 scale=match.arg(scale,c("unitvar","none","center")),
-                 radius.type=match.arg(radius.type,c("letremy")), 
+                 init.proto=match.arg(init.proto), scaling=match.arg(scaling),
+                 radius.type=match.arg(radius.type),
                  "verbose"=verbose)
-  ## TODO: to add later: other types, other modes (?), init=pca, scale=chi2,
+  ## TODO: to add later: other types, other modes (?), init=pca, scaling=chi2,
   # and radius.type=gaussian
   class(params) <- "paramSOM"
   
@@ -34,7 +35,7 @@ print.paramSOM <- function(x,...){
   } else {
     cat("    Initial prototypes given by user\n")
   }
-  cat("    Data pre-processing type       : ", x$scale, "\n")
+  cat("    Data pre-processing type       : ", x$scaling, "\n")
   cat("    Neighbourhood type             : ", x$radius.type, "\n")
   cat("\n")
 }

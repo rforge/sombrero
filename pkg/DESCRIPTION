@@ -1,8 +1,13 @@
-Package: stochSOM
-Title: Stochastic SOM algorithm for numeric and relational data
-Version: 0.1
-Date: 2013-03-18
-Author: Laura Bendhaiba <laurabendhaiba@gmail.com>, Madalina Olteanu <madalina.olteanu@univ-paris1.fr>, Nathalie Villa-Vialaneix <nathalie.villa@univ-paris1.fr>
+Package: SOMbrero
+Title: SOM Bound to Realize Euclidean and Relational Outputs
+Version: 0.2
+Date: 2013-04-15
+Author: Laura Bendhaiba <laurabendhaiba@gmail.com>,
+        Madalina Olteanu <madalina.olteanu@univ-paris1.fr>,
+        Nathalie Villa-Vialaneix <nathalie.villa@univ-paris1.fr>
 Maintainer: Nathalie Villa-Vialaneix <nathalie.villa@univ-paris1.fr>
-Description: Implement the stochastic (also called on-line) Self-Organising Map algorithm for numeric and relational data
+Description: Implement the stochastic (also called on-line) Self-Organising Map
+             (SOM) algorithm for numeric and relational data
+Depends: wordcloud, igraph (>= 0.6)
 License: GPL-2
+URL: http://www.nathalievilla.org/spip.php?article90

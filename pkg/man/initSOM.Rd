@@ -11,10 +11,13 @@ The \code{initSOM} function returns a \code{paramSOM} class object which
 contains the parameters needed to run the SOM algorithm.
 }
 \usage{
-initSOM(dimension=c(5,5), topo=c("square"), type=c("numeric", "relational"), 
-mode=c("online"), maxit=500, nb.save=0, verbose=FALSE, proto0=NULL, 
-init.proto=c("random","obs"), scale=c("unitvar","none","center"), 
-radius.type=c("letremy"))
+initSOM(dimension = c(5, 5), topo = c("square"),
+        dist.type =c("maximum", "euclidean", "manhattan", "canberra",
+                     "binary", "minkowski"),
+        type = c("numeric", "relational"), mode = c("online"), maxit = 500,
+        nb.save = 0, verbose = FALSE, proto0 = NULL,
+        init.proto = c("random", "obs"), scaling=c("unitvar", "none", "center"),
+        radius.type = c("letremy"))
 \method{print}{paramSOM}(x, \ldots)
 \method{summary}{paramSOM}(object, \ldots)
 }
@@ -34,11 +37,14 @@ radius.type=c("letremy"))
   \item{init.proto}{The method to be used to initialize the prototypes. This 
   argument is only considered when \code{proto0=NULL}. Default value is 
   \code{random}.}
-  \item{scale}{The type of data pre-processing. Default value is 
+  \item{scaling}{The type of data pre-processing. Default value is 
   \code{unitvar}.}
   \item{radius.type}{The neighbourhood type. Default value is \code{letremy}.}
   \item{type}{The SOM algorithm type. Default value is \code{numeric}.}
   \item{mode}{The SOM algorithm mode. Default value is \code{online}.}
+  \item{dist.type}{The neighborhood relationship on the grid. The possible
+  values are those of the option \code{method} of the function
+  \code{\link[stats]{dist}}. Default value is \code{maximum}.}
   \item{x, object}{an object of class \code{paramSOM}.}
   \item{\ldots}{not used}
 }
@@ -47,11 +53,9 @@ The \code{initSOM} function returns an object of class \code{paramSOM} which is
 a list of the parameters passed to the \code{initSOM} function, plus the default
 parameters for whose which were not set by the user.
 }
-\author{Laura Bendhaiba <laurabendhaiba@gmail.com>
-
-Madalina Olteanu <madalina.olteanu@univ-paris1.fr>
-
-Nathalie Villa-Vialaneix <nathalie.villa@univ-paris1.fr>
+\author{Laura Bendhaiba \email{laurabendhaiba@gmail.com}\cr
+Madalina Olteanu \email{madalina.olteanu@univ-paris1.fr}\cr
+Nathalie Villa-Vialaneix \email{nathalie.villa@univ-paris1.fr}
 }
 \seealso{
 See \link{initGrid} for creating a SOM prior structure (grid).

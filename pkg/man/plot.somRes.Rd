@@ -5,12 +5,20 @@
 Draw a \code{somRes} class object
 }
 \description{
-Produce graphics out of a \code{somRes}.
+Produce graphics to help interpreting a \code{somRes} object.
 }
 \usage{
 \method{plot}{somRes}(x, what=c("obs", "prototypes", "energy", "add"), 
-type=switch(what, "obs"="hitmap", "prototypes"="color", "add"="pie", 
-"energy"=NULL), var = 1, palette=NULL, \dots)
+                        type=switch(what,
+                                    "obs"="hitmap",
+                                    "prototypes"="color",
+                                    "add"="pie",
+                                    "energy"=NULL),
+                        variable = if (what=="add") NULL else 
+                          if (type=="boxplot") 1:min(5,ncol(x$data)) else 1,
+                        my.palette=NULL, is.scaled=TRUE, proportional=TRUE,
+                        print.title=FALSE, s.radius=1, pie.graph=FALSE,
+                        pie.variable=NULL, \dots)
 }
 
 \arguments{
@@ -23,61 +31,50 @@ type=switch(what, "obs"="hitmap", "prototypes"="color", "add"="pie",
   \code{type} argument). Default values are \code{"hitmap"} for \code{obs}, 
   \code{"color"} for \code{prototypes} and \code{"pie"} for \code{add}. See
   section ``Details'' below for further details.}
-  \item{var}{The index or the name of the variable to be considered for 
-  \code{type="color"}. Default value is 1 (i.e., the first variable of the
-  input data is displayed).}
-  \item{palette}{A vector of colors to be used when \code{type="color"}. If no
-  value for \code{palette} is passed to the function, it uses a vector of color
-  based on the \code{heat.colors} palette and a number of colors adjusted to the
-  size of the map, smaller than 9.}
-  \item{\dots}{Further arguments to be passed to the \code{\link{plot}}
-  function.}
+  \item{variable}{Either the variable to be used for \code{what="add"} or the 
+  index of the variable of the data set to consider. For \code{type="boxplot"}, 
+  the default value is the sequence from 1 to the minimum between 5 and the 
+  number of columns of the data set. In all other cases, default value is 1. 
+  See \code{\link{somRes.plotting}} for further details.}
+  \item{my.palette}{A vector of colors. If omitted, predefined palettes are
+  used, depending on the plot case. This argument is used for the following
+  combinations: all \code{"color"} types and \code{"prototypes"/"poly.dist"}.}
+  \item{is.scaled}{A boolean indicating whether the scaling should be applied or 
+  not. Default value is \code{TRUE}.}
+  \item{proportional}{Boolean used when \code{what="add"} and \code{type="pie"}. 
+  It indicates if the pies should be proportional to the number of observations 
+  in the class. Default value is \code{TRUE}.}
+  \item{print.title}{Boolean used to indicate whether each neuron should have a 
+  title or not. Default value is \code{FALSE}. It is feasible on the following 
+  cases: all \code{"color"} types, all \code{"lines"} types, all 
+  \code{"barplot"} types, all \code{"radar"} types, all \code{"boxplot"} types, 
+  all \code{"names"} types, \code{"add"/"pie"}, \code{"prototypes"/"umatrix"}, 
+  \code{"prototypes"/"poly.dist"} and \code{"add"/"words"}.}
+  \item{s.radius}{The size of the pies to be plotted (maximum size when 
+  \code{proportional=TRUE}). The default value is \code{0.9}.}
+  \item{pie.graph}{Boolean used when \code{what="add"} and \code{type="graph"}. 
+  It indicates if the vertices should be pies or not.}
+  \item{pie.variable}{The variable needed to plot the pies when 
+  \code{what="add"}, \code{type="graph"} and argument \code{pie.graph} is set 
+  to \code{TRUE}.}
+  \item{\dots}{Further arguments to be passed to the underlined plot function
+  (that can be \code{\link{plot}}, \code{\link{barplot}}, \code{\link{pie}}...
+  depending on \code{type}; see \code{\link{somRes.plotting}} for further
+  details).}
 }
 
 \details{
-For \code{what="obs"}, possible values for \code{type} are 
-\code{"hitmap"} (proportional areas according to the number of observation per 
-neuron), \code{"lines"} or \code{"names"}.
-
-\code{what="energy"} is only available if some intermediate backups
-have been registered (i.e., \code{x$parameters$nb.save>1}). Graphic plots the 
-evolution of the level of the energy according to the registered steps.
-
-For \code{what="prototypes"}, possible values for \code{"type"} are \code{"3d"}, 
-\code{"lines"}, \code{"barplot"}, \code{"radar"} or \code{"color"}. 
-\code{"color"} can have two more arguments, \code{var}, the index (or the name)
-of the  variable to be considered (default, \code{1}), and \code{palette}
-(default,  \code{heat.colors}) for the colors to be used. Neurons are filled
-using the given palette according to the value level of the chosen variable.
-
-For \code{what="add"}, possible values for \code{"type"} are \code{"pie"}, 
-\code{"color"} or \code{"3d"}.
+See \code{\link{somRes.plotting}} for further details. % add link
 }
 
-\author{Laura Bendhaiba <laurabendhaiba@gmail.com>
-
-Madalina Olteanu <madalina.olteanu@univ-paris1.fr>
-
-Nathalie Villa-Vialaneix <nathalie.villa@univ-paris1.fr>
+\author{Laura Bendhaiba \email{laurabendhaiba@gmail.com}\cr
+Madalina Olteanu \email{madalina.olteanu@univ-paris1.fr}\cr
+Nathalie Villa-Vialaneix \email{nathalie.villa@univ-paris1.fr}
 }
 
 \seealso{
 \code{\link{trainSOM}} to run the SOM algorithm, that returns a \code{somRes} 
 class object.
-}
-\examples{
-# generate data in [0,1]x[0,1]
-the.data <- data.frame("x1"=runif(500), "x2"=runif(500))
-# run the SOM algorithm
-my.som <- trainSOM(x.data=the.data, dimension=c(5,5), nb.save=10, maxit=2000)
-
-# plots
-# plot prototypes in color according to the value of the 1st variable
-plot(my.som, what="prototypes", type="color", var=1, palette=terrain.colors(6))
-# plot the evolution of the energy
-plot(my.som, what="energy", col="red", pch=19)
-# plot the hitmap of the observations
-plot(my.som, what="obs", type="hitmap", main="hitmap")
 }
 
 \keyword{aplot}

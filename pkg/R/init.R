@@ -1,0 +1,18 @@
+.onAttach <- function(libname, pkgname){
+  packageStartupMessage("")
+  packageStartupMessage("***********************************************************")
+  packageStartupMessage("")
+  packageStartupMessage("      This is 'SOMbrero' package, v 0.2")
+  packageStartupMessage("      url: http://www.nathalievilla.org/spip.php?article90")
+  packageStartupMessage("")
+  packageStartupMessage("Use trainSOM to run the stochastic (on-line)")
+  packageStartupMessage("     Self organizing Maps algorithm")
+  packageStartupMessage("     for numerical and relational data")
+  packageStartupMessage("")
+  packageStartupMessage("Further information with help(SOMbrero)...")
+  packageStartupMessage("")
+  packageStartupMessage("Warning! This package has been implemented by girls.")
+  packageStartupMessage("Default colors may not be suited for men.")
+  packageStartupMessage("")
+  packageStartupMessage("***********************************************************")
+}

@@ -1,14 +1,19 @@
-stochSOM 0.1
+SOMbrero 0.2
 
-The initial version of onlineSOM package considers only numerical data.
-Available parameters of the SOM algorithm :
-  Grid                        :   square topology
-  SOM type                    :   numeric
-  SOM mode                    :   online
-  Radius type                 :   letremy
-  Prototypes initialization   :   random or obs
-  Scale                       :   unitvar, center or none
-Available plots :
-  Observations                :   hitmap
-  Prototypes                  :   color
-  Energy
+Name changes :
+  The argument 'scale' of 'somRes' object is now called 'scaling' (conflict with
+  a R base function)
+
+Argument changes :
+  The argument 'dist.type' has been transfered from 'somRes' to 'myGrid' objects.
+
+New options :
+  Distance type on the grid   :   maximum, euclidean, manhattan, canberra, 
+                                  binary or minkowski
+New plots :
+  Observations                :   color, lines, barplot, radar, boxplot and 
+                                  names
+  Prototypes                  :   lines, barplot, radar, 3d, poly.dist, umatrix 
+                                  and smooth.disy
+  Additional variable         :   pie, color, lines, barplot, radar, boxplot, 
+                                  words, names and graph

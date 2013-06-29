@@ -16,19 +16,13 @@
 ** predict.somRes() : TODO: implement other types such as relational
 
 * plots.R
-** plot.prototypes()
-*** 3d type
-*** lines type
-*** barplot type
-*** radar type
-*** distance (continuous or hexagonal)
-** plot.obs()
-*** lines type
-*** names type
-** plot.add() : TODO all function
+** implement projectGraph
+** some graphical functions would not work with other topologies
 
 * prototypes clustering
 
 * quality functions
 ** quantization error
 ** kaski lagus
+** inter-neurons variance
+** topological error

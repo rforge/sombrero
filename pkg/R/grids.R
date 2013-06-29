@@ -1,7 +1,10 @@
 ## These functions handle grids (creation, description, display...)
 
-initGrid <- function(dimension=c(5,5), topo=c("square")) {
+initGrid <- function(dimension=c(5,5), topo=c("square"),
+                     dist.type=c("maximum","euclidean","manhattan","canberra",
+                                 "binary","minkowski")) {
   topo <- match.arg(topo)
+  dist.type <- match.arg(dist.type)
   if(topo=="square") {
     x <- seq(from=1, to=dimension[1], by=1)
     y <- seq(from=1, to=dimension[2], by=1)
@@ -10,17 +13,19 @@ initGrid <- function(dimension=c(5,5), topo=c("square")) {
     colnames(tmp) <- c("x","y")
   }
   ## TODO Implement other grids such as hexagonal
-  result <- list("coord"=tmp, "topo"=topo, "dim"=dimension)
+  result <- list("coord"=tmp, "topo"=topo, "dim"=dimension,
+                 "dist.type"=dist.type)
   class(result) <- "myGrid"
   return(result)
 }
 
 print.myGrid <-function(x,...) {
   cat("\n      Self-Organizing Map structure\n\n")
-  cat("        Features :\n")
-  cat("           topology    : ", x$topo, "\n")
-  cat("           x dimension : ", x$dim[1], "\n")
-  cat("           y dimension : ", x$dim[2], "\n")
+  cat("        Features   :\n")
+  cat("           topology     : ", x$topo, "\n")
+  cat("           x dimension  : ", x$dim[1], "\n")
+  cat("           y dimension  : ", x$dim[2], "\n")
+  cat("           distance type: ", x$dist.type, "\n")
   cat("\n")
 }
 

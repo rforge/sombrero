@@ -22,16 +22,14 @@ Draw a grid corresponding to a \code{myGrid} class object in a graphical window.
 Color filling process uses the coordinates of the object \code{x}, having class
 \code{myGrid} and included in \code{x$coord}.
 }
-\author{Laura Bendhaiba <laurabendhaiba@gmail.com>
-
-Madalina Olteanu <madalina.olteanu@univ-paris1.fr>
-
-Nathalie Villa-Vialaneix <nathalie.villa@univ-paris1.fr>
+\author{Laura Bendhaiba \email{laurabendhaiba@gmail.com}\cr
+Madalina Olteanu \email{madalina.olteanu@univ-paris1.fr}\cr
+Nathalie Villa-Vialaneix \email{nathalie.villa@univ-paris1.fr}
 }
 \seealso{\code{\link{initGrid}} to define a \code{myGrid} class object.}
 \examples{
 # creating grid
-a.grid <- initGrid(dimension=c(5,5), topo="square")
+a.grid <- initGrid(dimension=c(5,5), topo="square", dist.type="maximum")
 
 # plotting grid
 # without any color specification
