@@ -67,7 +67,7 @@ plot.somSC <- function(x, type=c("dendrogram", "grid", "hitmap", "lines",
     if ((x$tree$method=="ward")&(plot.var)) {
       layout(matrix(c(2,2,1),ncol=3))
       Rsq <- cumsum(x$tree$height/sum(x$tree$height))
-      plot(1:length(x$tree$height), Rsq, type="b", pch="+",
+      plot(length(x$tree$height):1, Rsq, type="b", pch="+",
            xlab="Number of clusters", ylab="% of explained variance",
            main="Proportion of variance\n explained by super-clusters")
       do.call("plot", args)
@@ -94,16 +94,20 @@ plot.somSC <- function(x, type=c("dendrogram", "grid", "hitmap", "lines",
     } else clust.col <- rep("black",prod(x$som$parameters$the.grid$dim))
     # FIX IT! maybe some more code improvements...  
     x.y.coord <- x$som$parameters$the.grid$coord+0.5
+    if (floor(max(x$tree$height[-which.max(x$tree$height)]))==0) {
+      z.max <- max(x$tree$height[-which.max(x$tree$height)])
+    } else {
+      z.max <- ceiling(max(x$tree$height[-which.max(x$tree$height)]))
+    }
     spt <- scatterplot3d(x=x.y.coord[,1], y=x.y.coord[,2], 
                          z=rep(0,prod(x$som$parameters$the.grid$dim)), 
-                         zlim=c(0, ceiling(max(x$tree$height
-                                               [-which.max(x$tree$height)]))), 
+                         zlim=c(0, z.max), 
                          pch=19, color=clust.col, xlab="x", ylab="y",  
                          zlab="", x.ticklabs="", y.ticklabs="")
     horiz.ticks <- matrix(NA, nrow=prod(x$som$parameters$the.grid$dim)-1, ncol=2)
     for (neuron in 1:(prod(x$som$parameters$the.grid$dim)-1)) {
       vert.ticks <- sapply(1:2, dendro3dProcess, ind=neuron, tree=x$tree, 
-                     coord=x.y.coord, mat.moy=horiz.ticks, scatter=spt)  
+                           coord=x.y.coord, mat.moy=horiz.ticks, scatter=spt)
       horiz.ticks[neuron,] <- rowMeans(vert.ticks)
       spt$points3d(matrix(c(vert.ticks[,1], x$tree$height[neuron],
                             vert.ticks[,2], x$tree$height[neuron]), ncol=3,
@@ -138,6 +142,11 @@ plot.somSC <- function(x, type=c("dendrogram", "grid", "hitmap", "lines",
         par(mfrow=c(1,1), oma=c(0,0,0,0), mar=c(5, 4, 4, 2)+0.1)
       } else if (type %in% c("hitmap", "lines", "barplot", "boxplot", "mds",
                              "color", "poly.dist", "pie", "graph", "radar")) {
+        if ((x$som$parameters$type=="korresp") && 
+              (type %in% c("barplot", "boxplot", "pie", "graph", "radar")))
+            stop(type, " plot is not available for 'korresp' super classes\n", 
+                 call.=TRUE)
+          
         if ((type%in%c("poly.dist", "radar"))&(plot.legend)) {
           plot.legend <- FALSE
           warning("Impossible to plot the legend with type '",type,"'.\n",

@@ -16,9 +16,10 @@ Produce graphics to help interpreting a \code{somRes} object.
                                     "energy"=NULL),
                         variable = if (what=="add") NULL else 
                           if (type=="boxplot") 1:min(5,ncol(x$data)) else 1,
-                        my.palette=NULL, is.scaled=TRUE, proportional=TRUE,
-                        print.title=FALSE, s.radius=1, pie.graph=FALSE,
-                        pie.variable=NULL,
+                        my.palette=NULL, 
+                  is.scaled=if (x$parameters$type=="korresp") FALSE else TRUE, 
+                        proportional=TRUE, print.title=FALSE, s.radius=1, 
+                        pie.graph=FALSE, pie.variable=NULL,
                         the.titles=if (what!="energy") 
                           switch(type,
                                           "graph"=
@@ -26,6 +27,7 @@ Produce graphics to help interpreting a \code{somRes} object.
                                           paste("Cluster",
                                                 1:prod(x$parameters$
                                                          the.grid$dim))),
+                        view= if (x$parameters$type=="korresp") "r" else NULL,
                         \ldots)
 }
 
@@ -47,8 +49,9 @@ Produce graphics to help interpreting a \code{somRes} object.
   \item{my.palette}{A vector of colors. If omitted, predefined palettes are
   used, depending on the plot case. This argument is used for the following
   combinations: all \code{"color"} types and \code{"prototypes"/"poly.dist"}.}
-  \item{is.scaled}{A boolean indicating whether the scaling should be applied or 
-  not. Default value is \code{TRUE}.}
+  \item{is.scaled}{A boolean indicating whether values should be scaled prior to
+  plotting or not. Default value is \code{FALSE} when \code{type="korresp"} and 
+  \code{TRUE} in the other cases.}
   \item{proportional}{Boolean used when \code{what="add"} and \code{type="pie"}. 
   It indicates if the pies should be proportional to the number of observations 
   in the class. Default value is \code{TRUE}.}
@@ -66,8 +69,10 @@ Produce graphics to help interpreting a \code{somRes} object.
   \code{what="add"}, \code{type="graph"} and argument \code{pie.graph} is set 
   to \code{TRUE}.}
   \item{the.titles}{The titles to be printed for each neuron.}
+  \item{view}{Used only when the algorithm's type is \code{"korresp"}. It
+  indicates whether rows (\code{"r"}) or columns (\code{"c"}) must be drawn.}
   \item{\dots}{Further arguments to be passed to the underlined plot function
-  (that can be \code{\link{plot}}, \code{\link{barplot}}, \code{\link{pie}}...
+  (which can be \code{\link{plot}}, \code{\link{barplot}}, \code{\link{pie}}...
   depending on \code{type}; see \code{\link{somRes.plotting}} for further
   details).}
 }

@@ -350,7 +350,7 @@ plotPolygon <- function(values, clustering, the.grid, my.palette, args) {
 
 ### SOM algorithm graphics
 plotPrototypes <- function(sommap, type, variable, my.palette, print.title,
-                           the.titles, is.scaled, args) {
+                           the.titles, is.scaled, view, args) {
   ## types : 3d, lines, barplot, radar, color, smooth.dist, poly.dist, umatrix,
   # mds
   
@@ -361,8 +361,21 @@ plotPrototypes <- function(sommap, type, variable, my.palette, print.title,
             immediate.=TRUE)
     type <- "lines"
   }
+  # korresp control
+  if (sommap$parameters$type=="korresp" && type%in%c("barplot", "radar"))
+    stop("prototypes/", type, " plot is not available for 'korresp'\n", 
+         call.=TRUE)
+  
   if (type=="lines" || type=="barplot") {
-    plotAllVariables("prototypes",type,sommap$prototypes,
+    if (sommap$parameters$type=="korresp") {
+      if (view=="r")
+        tmp.proto <- sommap$prototypes[,(ncol(sommap$data)+1):
+                                         ncol(sommap$prototypes)]
+      else
+        tmp.proto <- sommap$prototypes[,1:ncol(sommap$data)]
+    } else
+      tmp.proto <- sommap$prototypes
+    plotAllVariables("prototypes",type,tmp.proto,
                      print.title=print.title,the.titles=the.titles,
                      is.scaled=is.scaled,
                      the.grid=sommap$parameters$the.grid,args=args)
@@ -375,7 +388,12 @@ plotPrototypes <- function(sommap, type, variable, my.palette, print.title,
               call.=TRUE, immediate.=TRUE)
       variable <- variable[1]
     }
-    plotColor("prototypes", sommap$prototypes[,variable], sommap$clustering,
+    if (sommap$parameters$type=="korresp" & (is.numeric(variable))) {
+      if (view=="r") 
+        tmp.var <- variable+ncol(sommap$data)
+      else tmp.var <- variable
+    } else tmp.var <- variable
+    plotColor("prototypes", sommap$prototypes[,tmp.var], sommap$clustering,
               sommap$parameters$the.grid, my.palette, print.title, the.titles,
               args)
   } else if (type=="3d") {
@@ -384,7 +402,14 @@ plotPrototypes <- function(sommap, type, variable, my.palette, print.title,
               call.=TRUE, immediate.=TRUE)
       variable <- variable[1]
     }
-    plot3d(sommap$prototypes, sommap$parameters$the.grid, type, variable, args)
+    if (sommap$parameters$type=="korresp" & (is.numeric(variable))) {
+      if (view=="r") 
+        tmp.var <- variable+ncol(sommap$data)
+      else 
+        tmp.var <- variable
+    } else
+      tmp.var <- variable
+    plot3d(sommap$prototypes, sommap$parameters$the.grid, type, tmp.var, args)
   } else if (type=="poly.dist") {
     values <- calculateNeighborDists(sommap$prototypes, 
                                      sommap$parameters$the.grid)
@@ -401,7 +426,6 @@ plotPrototypes <- function(sommap, type, variable, my.palette, print.title,
     values <- calculateNeighborDists(sommap$prototypes, 
                                      sommap$parameters$the.grid)
     values <- unlist(lapply(values,mean))
-    values <- (max(values)-values)
     if (type=="umatrix") {
       plotColor("prototypes", values, sommap$clustering, 
                 sommap$parameters$the.grid, my.palette, print.title, the.titles,
@@ -446,7 +470,7 @@ plotPrototypes <- function(sommap, type, variable, my.palette, print.title,
 }
 
 plotObs <- function(sommap, type, variable, my.palette, print.title, the.titles,
-                    is.scaled, args) {
+                    is.scaled, view, args) {
   ## types : hitmap, lines, names, color, barplot, boxplot, radar
   
   # default value is type="hitmap"
@@ -456,6 +480,13 @@ plotObs <- function(sommap, type, variable, my.palette, print.title, the.titles,
             immediate.=TRUE)
     type <- "hitmap"
   }
+  # korresp control
+  if (sommap$parameters$type=="korresp" && !(type%in%c("hitmap", "names"))) {
+    warning("korresp SOM: incorrect type replaced by 'hitmap'\n", call.=TRUE, 
+            immediate.=TRUE)
+    type <- "hitmap"
+  }
+  
   if (type=="lines" || type=="barplot") {
     plotAllVariables("obs", type, sommap$data, sommap$clustering, 
                      print.title, the.titles, is.scaled,
@@ -465,7 +496,7 @@ plotObs <- function(sommap, type, variable, my.palette, print.title, the.titles,
       warning("length(variable)>1, only first element will be considered\n", 
               call.=TRUE, immediate.=TRUE)
       variable <- variable[1]
-    }
+    } 
     plotColor("obs", sommap$data[,variable], sommap$clustering,
               sommap$parameters$the.grid, my.palette, print.title, the.titles,
               args)
@@ -513,9 +544,13 @@ plotObs <- function(sommap, type, variable, my.palette, print.title, the.titles,
                      print.title, the.titles, is.scaled,
                      sommap$parameters$the.grid, args)
   } else if (type=="names") {
-    if (!is.null(rownames(sommap$data))) {
-      values <- rownames(sommap$data)
-    } else values <- 1:nrow(sommap$data)
+    if (sommap$parameters$type=="korresp") {
+      values <- names(sommap$clustering)
+    } else {
+      if (!is.null(rownames(sommap$data))) {
+        values <- rownames(sommap$data)
+      } else values <- 1:nrow(sommap$data)
+    }
     plotAllVariables("obs", type, values, sommap$clustering, 
                      print.title, the.titles, is.scaled,
                      sommap$parameters$the.grid, args)
@@ -541,7 +576,7 @@ plotEnergy <- function(sommap, args) {
 
 plotAdd <- function(sommap, type, variable, proportional, my.palette,
                     print.title, the.titles, is.scaled, s.radius, pie.graph,
-                    pie.variable, args) {
+                    pie.variable, view, args) {
   ## types : pie, color, lines, boxplot, names, words, graph, barplot, radar
   # to be implemented: graph
   
@@ -556,6 +591,11 @@ plotAdd <- function(sommap, type, variable, proportional, my.palette,
     stop("for what='add', the argument 'variable' must be supplied\n", 
          call.=TRUE)
   }
+  
+  # korresp control
+  if (sommap$parameters$type=="korresp") 
+    stop("graphics of type 'add' do not exist for 'korresp'\n", call.=TRUE)
+  
   if(type!="graph" && nrow(variable)!=nrow(sommap$data)){
     stop("length of additional variable does not fit length of the original
          data", call.=TRUE)
@@ -700,9 +740,11 @@ plot.somRes <- function(x, what=c("obs", "prototypes", "energy", "add"),
                                     "energy"=NULL),
                         variable = if (what=="add") NULL else 
                           if (type=="boxplot") 1:min(5,ncol(x$data)) else 1,
-                        my.palette=NULL, is.scaled=TRUE, proportional=TRUE,
-                        print.title=FALSE, s.radius=1, pie.graph=FALSE,
-                        pie.variable=NULL,
+                        my.palette=NULL, 
+                        is.scaled = if (x$parameters$type=="korresp") FALSE else
+                          TRUE, 
+                        proportional=TRUE, print.title=FALSE, s.radius=1, 
+                        pie.graph=FALSE, pie.variable=NULL,
                         the.titles=if (what!="energy") 
                           switch(type,
                                           "graph"=
@@ -710,9 +752,12 @@ plot.somRes <- function(x, what=c("obs", "prototypes", "energy", "add"),
                                           paste("Cluster",
                                                 1:prod(x$parameters$
                                                          the.grid$dim))),
+                        view = if (x$parameters$type=="korresp") "r" else NULL,
                         ...) {
   args <- list(...)
   match.arg(what)
+  if ((x$parameters$type=="korresp")&&!(view%in%c("r","c")))
+      stop("view must be one of 'r'/'c'",call.=TRUE)
   if (length(the.titles)!=prod(x$parameters$the.grid$dim) & what!="energy") {
     the.titles=switch(type,
                       "graph"=1:prod(x$parameters$the.grid$dim),
@@ -723,11 +768,12 @@ plot.somRes <- function(x, what=c("obs", "prototypes", "energy", "add"),
 
   switch(what,
          "prototypes"=plotPrototypes(x, type, variable, my.palette, print.title,
-                                     the.titles, is.scaled, args),
+                                     the.titles, is.scaled, view, args),
          "energy"=plotEnergy(x, args),
          "add"=plotAdd(x, type, if (type!="graph") as.matrix(variable) else 
            variable, proportional, my.palette, print.title, the.titles, 
-                       is.scaled, s.radius, pie.graph, pie.variable, args),
+                       is.scaled, s.radius, pie.graph, pie.variable, view, 
+                       args),
          "obs"=plotObs(x, type, variable, my.palette, print.title, the.titles,
-                       is.scaled, args))
+                       is.scaled, view, args))
 }

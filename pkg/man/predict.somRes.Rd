@@ -21,7 +21,10 @@ Predict the classification of a new observation
 the data set given to the SOM algorithm (see \code{\link{trainSOM}}).}
 
 \value{\code{predict.somRes} returns the number of the neuron to which the new 
-observation is assigned (i.e., neuron with the closest prototype.}
+observation is assigned (i.e., neuron with the closest prototype).
+
+When the algorithm's type is \code{"korresp"}, \code{x.new} must be the original 
+contingency table passed to the algorithm.}
 
 \author{Laura Bendhaiba \email{laurabendhaiba@gmail.com}\cr
 Madalina Olteanu \email{madalina.olteanu@univ-paris1.fr}\cr

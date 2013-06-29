@@ -2,11 +2,19 @@
 initSOM <- function(dimension=c(5,5), topo=c("square"),
                     dist.type=c("maximum","euclidean","manhattan","canberra",
                                 "binary","minkowski"),
-                    type=c("numeric", "relational"), mode=c("online"), 
+                    type=c("numeric", "relational", "korresp"), 
+                    mode=c("online"), 
                     maxit=500, nb.save=0, verbose=FALSE, proto0=NULL, 
                     init.proto=c("random","obs"), 
-                    scaling=c("unitvar","none","center"), 
+                    scaling=c("unitvar","none","center", "chi2"), 
                     radius.type=c("letremy")) {
+  if (type=="korresp" && scaling!="chi2") {
+    scaling <- "chi2"
+    warning("scaling value replaced: must be 'chi2' for 'korresp' type\n", 
+            call.=TRUE, immediate.=TRUE)
+  }
+  if (type!="korresp" && scaling=="chi2") 
+    stop("scaling='chi2' is only implemented for 'korresp' type\n", call.=TRUE)
   
   params <- list("the.grid"=initGrid(dimension,match.arg(topo),
                                      match.arg(dist.type)),
@@ -15,7 +23,8 @@ initSOM <- function(dimension=c(5,5), topo=c("square"),
                  init.proto=match.arg(init.proto), scaling=match.arg(scaling),
                  radius.type=match.arg(radius.type),
                  "verbose"=verbose)
-  ## TODO: to add later: other types, other modes (?), init=pca, scaling=chi2,
+  
+  ## TODO: to add later: other types, other modes (?), init=pca,
   # and radius.type=gaussian
   class(params) <- "paramSOM"
   

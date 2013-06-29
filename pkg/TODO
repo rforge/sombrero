@@ -18,6 +18,7 @@
 * plots.R
 ** implement projectGraph
 ** some graphical functions would not work with other topologies
+** colors handling in "names" seems to sometimes bug
 
 * quality functions
 ** kaski lagus

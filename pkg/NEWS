@@ -1,3 +1,15 @@
+SOMbrero 0.3
+New features:
+  Implementation of the "korresp" algorithm to handle contingency table
+  Plots, quality functions and super-clustering has been updated to handle this
+case
+
+Fixed bugs:
+  Bug fixed in the dendrogram of super-clustering (percentage of explained
+variance was incorrectly displayed)
+  Bug fixed in smooth.dist and umatrix (distances were reversed)
+
+
 SOMbrero 0.2-2
 
 New options:

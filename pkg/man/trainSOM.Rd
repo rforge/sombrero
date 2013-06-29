@@ -45,9 +45,22 @@ The function \code{summary.somRes} also provides an ANOVA (ANalysis Of VAriance)
 of each input numeric variables in function of the map's clusters. This is 
 helpful to see which variables participate to the clustering.
 }
+\details{
+The version of the SOM algorithm implemented in this package is the stochastic
+version.
+
+Several variants able to handle non-vectorial data are also implemented in their
+stochastic versions: \code{type="korresp"} for contingency tables, as described
+in Cottrel et al., 1993.
+}
 \references{
 Teuvo Kohonen (2001) Self-Organizing Maps. Springer-Verlag, Berlin and 
 Heidelberg, 3rd edition.
+
+Marie Cottrell, Patrick Letremy and Elisabeth Roy (1993) Analyzing a contingency
+table with Kohonen maps: a Factorial Correspondence Analysis. In: Proceedings of
+IWANN'93, J. Cabestany, J. Mary, A. Prieto (Eds.), Lecture Notes in Computer
+Science, Springer-Verlag, 305-311.
 }
 \author{Laura Bendhaiba \email{laurabendhaiba@gmail.com}\cr
 Madalina Olteanu \email{madalina.olteanu@univ-paris1.fr}\cr

@@ -26,7 +26,7 @@ data(arth800)
   The micoarray experiments were performed in the laboratory of S. Smith
   (Edinburgh).The data are available from the NASCArrays database
   (\url{http://affymetrix.arabidopsis.info/} under experiment reference number
-  NASCARRAYS-60.
+  NASCARRAYS-60).
 }
 
 \references{
@@ -35,7 +35,7 @@ starch metabolism provide evidence for both transcriptional and
 posttranscriptional regulation of starch metabolism in Arabidopsis leaves.
 Plant Physiol., 136: 2687-2699.
 
-Sch\"afer, J., and Strimmer, K. (2005).  A shrinkage approach to large-scale
+Schaefer, J., and Strimmer, K. (2005).  A shrinkage approach to large-scale
 covariance estimation and implications for functional genomics. 
 Statist Appl Genet Mol Biol., \bold{4}:32.
 (\url{http://www.bepress.com/sagmb/vol4/iss1/art32/})

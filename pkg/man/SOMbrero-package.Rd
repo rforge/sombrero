@@ -18,11 +18,17 @@ parameters given to the algorithm (see \code{\link{initSOM}} and
 \tabular{ll}{
 Package: \tab SOMbrero\cr
 Type: \tab Package\cr
-Version: \tab 0.2-2\cr
-Date: \tab 2013-05-20\cr
+Version: \tab 0.3\cr
+Date: \tab 2013-06-14\cr
 License: GPL-2\cr
 URL: \tab SOMbrero \url{http://www.nathalievilla.org/spip.php?article90} \cr
 }
+The version of the SOM algorithm implemented in this package is the stochastic
+version.
+
+Several variants able to handle non-vectorial data are also implemented in their
+stochastic versions: \code{type="korresp"} for contingency tables, as described
+in Cottrel et al., 1993.
 }
 
 \author{Laura Bendhaiba \email{laurabendhaiba@gmail.com}
@@ -36,6 +42,11 @@ Maintainer: Nathalie Villa-Vialaneix \email{nathalie.villa@univ-paris1.fr}
 \references{
 Teuvo Kohonen (2001) Self-Organizing Maps. Springer-Verlag, Berlin and 
 Heidelberg, 3rd edition.
+
+Marie Cottrell, Patrick Letremy and Elisabeth Roy (1993) Analyzing a contingency
+table with Kohonen maps: a Factorial Correspondence Analysis. In: Proceedings of
+IWANN'93, J. Cabestany, J. Mary, A. Prieto (Eds.), Lecture Notes in Computer
+Science, Springer-Verlag, 305-311.
 }
 \seealso{
 \code{\link{initGrid}}, \code{\link{trainSOM}} and \code{\link{plot.somRes}}.
