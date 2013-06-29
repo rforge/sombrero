@@ -1,0 +1,8 @@
+Package: stochSOM
+Title: Stochastic SOM algorithm for numeric and relational data
+Version: 0.1
+Date: 2013-03-18
+Author: Laura Bendhaiba <laurabendhaiba@gmail.com>, Madalina Olteanu <madalina.olteanu@univ-paris1.fr>, Nathalie Villa-Vialaneix <nathalie.villa@univ-paris1.fr>
+Maintainer: Nathalie Villa-Vialaneix <nathalie.villa@univ-paris1.fr>
+Description: Implement the stochastic (also called on-line) Self-Organising Map algorithm for numeric and relational data
+License: GPL-2

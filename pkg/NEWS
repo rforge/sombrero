@@ -1,0 +1,14 @@
+stochSOM 0.1
+
+The initial version of onlineSOM package considers only numerical data.
+Available parameters of the SOM algorithm :
+  Grid                        :   square topology
+  SOM type                    :   numeric
+  SOM mode                    :   online
+  Radius type                 :   letremy
+  Prototypes initialization   :   random or obs
+  Scale                       :   unitvar, center or none
+Available plots :
+  Observations                :   hitmap
+  Prototypes                  :   color
+  Energy

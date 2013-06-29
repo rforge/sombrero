@@ -1,0 +1,19 @@
+## exports
+# standard functions
+export(initGrid)
+export(initSOM)
+export(trainSOM)
+
+# myGrid S3 functions
+S3method(print,myGrid)
+S3method(summary,myGrid)
+S3method(plot,myGrid)
+
+# paramSOM S3 functions
+S3method(print,paramSOM)
+S3method(summary,paramSOM)
+
+# somRes S3 functions
+S3method(print,somRes)
+S3method(summary,somRes)
+S3method(plot,somRes)
