@@ -3,9 +3,9 @@
 export(initGrid)
 export(initSOM)
 export(trainSOM)
-# export(projectGraph)
-export(superClass)
 export(quality)
+export(superClass)
+export(protoDist)
 
 # myGrid S3 functions
 S3method(print,myGrid)
@@ -21,6 +21,9 @@ S3method(print,somRes)
 S3method(summary,somRes)
 S3method(plot,somRes)
 S3method(predict,somRes)
+S3method(quality,somRes)
+S3method(superClass,somRes)
+S3method(protoDist,somRes)
 
 # somSC S3 functions
 S3method(print,somSC)

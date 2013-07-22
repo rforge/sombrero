@@ -11,10 +11,7 @@ The \code{trainSOM} function returns a \code{somRes} class object which
 contains the outputs of the algorithm.
 }
 \usage{
-trainSOM(x.data,
-         dimension=c(max(5,min(10,ceiling(sqrt(nrow(x.data)/10)))), 
-                     max(5,min(10,ceiling(sqrt(nrow(x.data)/10))))),
-         maxit=round(nrow(x.data)*5), ...)
+trainSOM(x.data, \ldots)
 \method{print}{somRes}(x, \ldots)
 \method{summary}{somRes}(object, \ldots)
 }
@@ -22,13 +19,22 @@ trainSOM(x.data,
 \arguments{
   \item{x.data}{a data frame or matrix containing the observations to be mapped 
   on the grid by SOM algorithm.}
-  \item{dimension}{a vector with two dimensions specifying the number of rows
-  and columns of the grid.}
-  \item{maxit}{the number of iterations of the algorithm.}
   \item{...}{Further arguments to be passed to the function
-  \code{\link{initSOM}} for specifying the parameters of the algorithm.}
+  \code{\link{initSOM}} for specifying the parameters of the algorithm. The 
+  default values of the arguments \code{maxit} and \code{dimension} are 
+  calculated according to the SOM type if the user does not set them:
+  \itemize{
+    \item \code{maxit} is equal to (number of rows+number of columns)*5 if the 
+    SOM type is \code{korresp} ; it is equal to number of rows*5 in all other 
+    SOM types
+    \item \code{dimension}: for a \code{korresp} SOM, is equal to maximum 
+    between 5 and the minimum of 10 and the ceiling value of the square root 
+    of (number of rows+number of columns) ; in all other SOM types, the square 
+    root only considers the number of rows.
+  }}
   \item{x, object}{an object of class \code{somRes}}
 }
+
 \value{
 The \code{trainSOM} function returns an object of class \code{somRes} which 
 contains the following components:
@@ -54,13 +60,19 @@ stochastic versions: \code{type="korresp"} for contingency tables, as described
 in Cottrel et al., 1993.
 }
 \references{
-Teuvo Kohonen (2001) Self-Organizing Maps. Springer-Verlag, Berlin and 
-Heidelberg, 3rd edition.
+Kohonen T. (2001) \emph{Self-Organizing Maps}. Berlin/Heidelberg:
+Springer-Verlag, 3rd edition.
 
-Marie Cottrell, Patrick Letremy and Elisabeth Roy (1993) Analyzing a contingency
-table with Kohonen maps: a Factorial Correspondence Analysis. In: Proceedings of
+Cottrell, M., Letremy, P., Roy, E. (1993) Analyzing a contingency table with
+Kohonen maps: a Factorial Correspondence Analysis. In: \emph{Proceedings of
 IWANN'93, J. Cabestany, J. Mary, A. Prieto (Eds.), Lecture Notes in Computer
-Science, Springer-Verlag, 305-311.
+Science}, Springer-Verlag, 305--311.
+
+Olteanu, M., Villa-Vialaneix, N., Cottrell, M. (2012) On-line
+relational SOM for dissimilarity data. In: \emph{Advances in Self-Organizing
+Maps (Proceedings of WSOM 2012, Santiago, Chili, 12-14 decembre 2012), Estevez
+P., Principe J., Zegers P., Barreto G. (eds.), 'Advances in Intelligent Systems
+and Computing' series}, Berlin/Heidelberg: Springer Verlag, \bold{198}, 13--22.
 }
 \author{Laura Bendhaiba \email{laurabendhaiba@gmail.com}\cr
 Madalina Olteanu \email{madalina.olteanu@univ-paris1.fr}\cr
@@ -70,9 +82,9 @@ Nathalie Villa-Vialaneix \email{nathalie.villa@univ-paris1.fr}
 can strongly increase the computational time since calculating the entire
 clustering and the energy is time consumming. Use this option with care and only
 when it is strictly necessary.}
-\seealso{
-See \link{plot.somRes} to plot the outputs of the algorithm.
-}
+
+\seealso{See \link{plot.somRes} to plot the outputs of the algorithm.}
+
 \examples{
 # Run trainSOM algorithm on the iris data with 500 iterations
 iris.som <- trainSOM(x.data=iris[,1:4])

@@ -11,8 +11,8 @@ Create an empty Self-Organizing Map structure which is a list of 2-dimensional
 points.
 }
 \usage{
-initGrid(dimension=c(5,5), topo=c("square"), dist.type=c("maximum","euclidean",
-"manhattan","canberra","binary","minkowski"))
+initGrid(dimension=c(5,5), topo=c("square"), dist.type=c("letremy", "maximum",
+"euclidean","manhattan","canberra","binary","minkowski"))
 \method{print}{myGrid}(x, \ldots)
 \method{summary}{myGrid}(object, \ldots)
 }
@@ -44,7 +44,7 @@ in a graphical window.}
 \examples{
 # creating a default grid
 # default parameters are: 5x5 dimension, squared topology 
-# and maximim distance type
+# and letremy distance type
 initGrid()
 
 # creating a 5x7 squared grid

@@ -1,5 +1,6 @@
 \name{superClass}
 \alias{superClass}
+\alias{superClass.somRes}
 \alias{print.somSC}
 \alias{summary.somSC}
 \alias{plot.somSC}
@@ -10,7 +11,8 @@
 Aggregate the resulting clustering of the SOM algorithm into super-clusters.}
 
 \usage{
-superClass(sommap, method="ward", members=NULL, k=NULL, h=NULL)
+\method{superClass}{somRes}(sommap, method="ward", members=NULL, k=NULL, 
+h=NULL, \ldots)
 \method{print}{somSC}(x, \ldots)
 \method{summary}{somSC}(object, \ldots)
 \method{plot}{somSC}(x, type=c("dendrogram", "grid", "hitmap", "lines", 
@@ -62,11 +64,14 @@ The squared distance between prototypes is passed to the algorithm.
 The different super classes are identified in the following ways:
 \itemize{
 \item either with different color, when \code{type} is set among: 
-\code{"grid"}, \code{"hitmap"}, \code{"lines"}, \code{"barplot"}, 
-\code{"boxplot"}, \code{"mds"}, \code{"dendro3d"}, \code{"graph"}
-\item or with title, when \code{type} is set among: \code{"color"}, 
-\code{"poly.dist"}, \code{"pie"}, \code{"radar"}
+\code{"grid"} (*, #), \code{"hitmap"} (*, #), \code{"lines"} (*, #), 
+\code{"barplot"} (*, #), \code{"boxplot"}, \code{"mds"} (*, #), 
+\code{"dendro3d"} (*, #), \code{"graph"} (*, #)
+\item or with title, when \code{type} is set among: \code{"color"} (*), 
+\code{"poly.dist"} (*, #), \code{"pie"} (#), \code{"radar"} (#)
 }
+In the list above, graphics available for a \code{korresp} SOM are marked with 
+a * whereas those available for a \code{relational} SOM are marked with a #.
 }
 
 \value{The \code{superClass} function returns an object of class \code{somSC} 

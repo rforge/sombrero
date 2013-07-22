@@ -17,7 +17,8 @@ Produce graphics to help interpreting a \code{somRes} object.
                         variable = if (what=="add") NULL else 
                           if (type=="boxplot") 1:min(5,ncol(x$data)) else 1,
                         my.palette=NULL, 
-                  is.scaled=if (x$parameters$type=="korresp") FALSE else TRUE, 
+                        is.scaled = if (x$parameters$type=="numeric") TRUE else
+                          FALSE, 
                         proportional=TRUE, print.title=FALSE, s.radius=1, 
                         pie.graph=FALSE, pie.variable=NULL,
                         the.titles=if (what!="energy") 
@@ -27,15 +28,15 @@ Produce graphics to help interpreting a \code{somRes} object.
                                           paste("Cluster",
                                                 1:prod(x$parameters$
                                                          the.grid$dim))),
-                        view= if (x$parameters$type=="korresp") "r" else NULL,
+                        view = if (x$parameters$type=="korresp") "r" else NULL,
                         \ldots)
 }
 
 \arguments{
   \item{x}{A \code{somRes} class object.}
-  \item{what}{What you want to plot. Either the observations (\code{obs}), the 
-  evolution of energy (\code{energy}), the prototypes (\code{prototypes}) or an 
-  additional variable (\code{add}).}
+  \item{what}{What you want to plot. Either the observations (\code{obs}, 
+  default case), the evolution of energy (\code{energy}), the prototypes 
+  (\code{prototypes}) or an additional variable (\code{add}).}
   \item{type}{Further argument indicating which type of chart you want to have.
   Choices depend on the value of \code{what} (\code{what="energy"} has no
   \code{type} argument). Default values are \code{"hitmap"} for \code{obs}, 
@@ -50,8 +51,8 @@ Produce graphics to help interpreting a \code{somRes} object.
   used, depending on the plot case. This argument is used for the following
   combinations: all \code{"color"} types and \code{"prototypes"/"poly.dist"}.}
   \item{is.scaled}{A boolean indicating whether values should be scaled prior to
-  plotting or not. Default value is \code{FALSE} when \code{type="korresp"} and 
-  \code{TRUE} in the other cases.}
+  plotting or not. Default value is \code{TRUE} when \code{type="numeric"} and 
+  \code{FALSE} in the other cases.}
   \item{proportional}{Boolean used when \code{what="add"} and \code{type="pie"}. 
   It indicates if the pies should be proportional to the number of observations 
   in the class. Default value is \code{TRUE}.}

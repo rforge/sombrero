@@ -1,28 +1,24 @@
-* grids.R
-** initGrid() : TODO Implement other grids such as hexagonal
-** plot.myGrid() : TODO implement other topologies such as hexagonal
+* other features (hard)
+** grid.topology: hexagonal
+** repeat SOM and combine
+** multiple dissimilarities
+** kacm
+** batch version
 
-* parameters.R
-** initSOM()
-*** other types
-*** other modes (?)
-*** init=pca,
-*** scale=chi2
-*** radius.type=gaussian
-
-* som.R
-** calculateRadius() : TODO: implement other radius types
-** oneObsAffectation() : TODO: implement other types such as relational
-** predict.somRes() : TODO: implement other types such as relational
-
-* plots.R
+* other features (easy)
+** add weights to observations
+** init=pca
+** radius.type=gaussian
 ** implement projectGraph
-** some graphical functions would not work with other topologies
-** colors handling in "names" seems to sometimes bug
-
-* quality functions
 ** kaski lagus
-** inter-neurons variance
+** add ANOVA for dissimilarity
+** add original energy as a parameter
 
-* global
+* implementation enhancement
+** should maybe improve the distance handling and propagate it everywhere
+** colors handling in "names" seems to sometimes bug
 ** make a function for initializing colors init.color(clustering, def.color)
+** dissimilarity algorithm requires a "dist" type input
+
+* misc
+** replace "arth800" by the mouse liver/gene dataset

@@ -1,7 +1,31 @@
+SOMbrero 0.4
+New features:
+  Implementation of the "dissimilarity" algorithm to handle dissimilarity data
+  Plots, quality functions and super-clustering have been updated to handle this
+case
+
+Code improvements:
+  New way to handle distance calculations
+  New way to handle the 'korresp' preprocessing (full matrix is now included)
+  Slightly changed default values for Letremy's radius and neighborhood: they
+are now exactly the same than in the original programs
+
+Fixed bugs:
+  Fixed bug with default options in korresp case
+  Fixed bug with affectation step in korresp case
+  Fixed bug for what="add" and type="graph" (node sizes were wrong)
+
+Misc
+  Added markdown vignettes: one general and one from each case; hence, the
+package now depends on R version 3.0 or higher
+  Added citation file
+
+
+********************************************************************************
 SOMbrero 0.3
 New features:
   Implementation of the "korresp" algorithm to handle contingency table
-  Plots, quality functions and super-clustering has been updated to handle this
+  Plots, quality functions and super-clustering have been updated to handle this
 case
 
 Fixed bugs:
@@ -10,21 +34,19 @@ variance was incorrectly displayed)
   Bug fixed in smooth.dist and umatrix (distances were reversed)
 
 
+********************************************************************************
 SOMbrero 0.2-2
-
 New options:
   The argument 'the.titles' has been introduced in plot.somRes
 
 New features:
   Implementation of a quality function for somRes object
-
   Implementation of a super-clustering for the resulting prototypes
-  
   Implementation of a plot method for the results of the super-clustering
 
 
+********************************************************************************
 SOMbrero 0.2
-
 Name changes :
   The argument 'scale' of 'somRes' object is now called 'scaling' (conflict with
   a R base function)
@@ -44,6 +66,7 @@ New plots:
                                   words, names and graph
 
 
+********************************************************************************
 SOMbrero 0.1
   The initial version of onlineSOM package considers only numerical data.
 

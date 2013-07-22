@@ -1,11 +1,13 @@
 \name{quality}
+\alias{quality.somRes}
 \alias{quality}
 
 \title{Compute SOM algorithm quality criteria}
 \description{The \code{quality} function computes several quality criteria for
 the result of a SOM algorithm.}
 \usage{
-quality(sommap, quality.type=c("all", "quantization", "topographic"))
+\method{quality}{somRes}(sommap,
+        quality.type=c("all", "quantization", "topographic"), \ldots)
 }
 
 \arguments{
@@ -15,6 +17,7 @@ quality(sommap, quality.type=c("all", "quantization", "topographic"))
   \code{quantization} and \code{topographic}. The output of the function is
   one those or both of them using the option \code{"all"}. Default value is the
   latter.}
+  \item{\ldots}{Not used.}
 }
 
 \value{The \code{quality} function returns either a numeric value (if only one 
@@ -35,10 +38,10 @@ Nathalie Villa-Vialaneix \email{nathalie.villa@univ-paris1.fr}
 }
 
 \references{
-Georg Polzlbauer (2004) Survey and comparison of quality measures for
-self-organizing maps. In Jan Paralic, Georg Polzlbauer, and Andreas Rauber
-(eds), Proceedings of the Fifth Workshop on Data Analysis (WDA'04), pages 67-82.
-Sliezsky dom, Vysoke Tatry, Slovakia, June 24-27 2004. Elfa Academic Press.
+Polzlbauer, G. (2004) Survey and comparison of quality measures for
+self-organizing maps. In: \emph{Proceedings of the Fifth Workshop on Data
+Analysis (WDA'04), Paralic, J., Polzlbauer, G., Rauber, A. (eds)} Sliezsky dom,
+Vysoke Tatry, Slovakia: Elfa Academic Press, 67--82.
 }
 
 \seealso{\code{\link{trainSOM}}, \code{\link{plot.somRes}}}

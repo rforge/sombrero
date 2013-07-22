@@ -1,3 +1,8 @@
+<!--
+%\VignetteEngine{knitr}
+%\VignetteIndexEntry{SOM for contingency tables}
+-->
+
 # Self-Organizing Map for contingency tables
 
 #### Laura BENDHAIBA, Madalina OLTEANU, Nathalie VILLA-VIALANEIX
@@ -71,6 +76,36 @@ vector is equal to the sum of the number of rows and the number of columns.
 __NB: The clustering component shows first the column variables (here, the 
 candidates) and then the row variables (here, the departements).__
 
+The following table indicates which graphics are available for a korresp SOM.
+
+Type        |   Energy  |   Obs |   Prototypes  |   Add   |   Super Cluster
+------------|:---------:|:-----:|:-------------:|:-------:|:----------------:
+no type     |   x       |       |               |         |
+hitmap      |           |   x   |               |         |         x
+color       |           |       |       x2      |         |         x2
+lines       |           |       |       x2      |         |         x2
+barplot     |           |       |       x       |         |
+radar       |           |       |       x       |         |
+pie         |           |       |               |         |
+boxplot     |           |       |               |         |
+3d          |           |       |       x2      |         |
+poly.dist   |           |       |       x       |         |         x
+umatrix     |           |       |       x       |         |
+smooth.dist |           |       |       x       |         |
+words       |           |       |               |         |
+names       |           |   x   |               |         |
+graph       |           |       |               |         |
+mds         |           |       |       x       |         |         x
+grid.dist   |           |       |       x       |         |         
+grid        |           |       |               |         |         x
+dendrogram  |           |       |               |         |         x
+dendro3d    |           |       |               |         |         x
+
+In the column "Prototypes", a plot marked "x2" means that this plot is 
+available for both row and column variables. In the "Super Cluster" column, a 
+"x2" cell means the plot is available for both data set variables and 
+additional variables. 
+
 ```{r presiClusters}
 korresp.som$clustering
 ```
@@ -88,20 +123,18 @@ plot(korresp.som, what="obs", type="names", scale=c(1.5,0.5))
 
 The map is organized as follows: the bottom right side of the map is associated
 to the candidate "Taubira" who obtained her better vote scoring in the overseas
-departements "Guadeloupe", "Martinique" and "Guyane" and to the far-left
-candidates "Besancenot", "Laguiller" and "Gluckstein" who traditionnaly have
-high voting scores near Paris in the departement "Seine St Denis".
+departements "Guadeloupe", "Martinique" and "Guyane".
 
 These candidates are opposed to the top left hand side of the map which is 
 associated to the far-right candidates "Le Pen" and "Megret" who traditionnaly
-obtain higher voting scores in the South Est of France "Var", "Vaucluse",
-"Alpes Maritimes". The top right hand side of the map is associated to the
-candidate "Saint Josse" who was fighting for traditional living style and 
-hunting and who obtained his higher scores in the rural departement "Lot et
-Garonne" and "Aude".
+obtain higher voting scores in some South of France departments including 
+"Herault", "Vaucluse", "Gard". A little bit further on the right, we can notice 
+the candidate "Saint Josse" who was fighting for traditional living style and 
+hunting and who obtained his higher scores in the rural departements "Somme", 
+"Landes" and "Aude".
 
 In the center of the map are the most traditional candidates "Jospin", "Chirac",
-"Mamère", "Hue"... who obtained more uniform scores in the whole France. It has
+"Hue"... who obtained more uniform scores in the whole France. It has
 to be noted that "Le Pen", who is a far right-candidate, has a rather central 
 position also and actually succeeded for the first time to run the second round
 of the presidential election.
@@ -127,7 +160,7 @@ plot(korresp.som, what="prototypes", type="lines", view="r", print.title=TRUE)
 # plot the column prototypes (16 candidates)
 plot(korresp.som, what="prototypes", type="lines", view="c", print.title=TRUE)
 ```
-The peaks in neurons 49, 57, 50 and 58 correspond, in the row view, to the 
+The peaks in neurons 49, 57 and 58 correspond, in the row view, to the 
 overseas departement and, in the column view, to the candidate "Taubira". In the
 column views, the two peaks clearly identified in the central clusters
 correspond to the two "main" tranditional candidates "Jospin" and "Chirac"
@@ -186,7 +219,7 @@ plot(korresp.som, what="prototypes", type="smooth.dist", print.title=TRUE)
 plot(korresp.som, what="prototypes", type="mds")
 plot(korresp.som, what="prototypes", type="grid.dist")
 ```
-Four neurons (49, 50, 57 and 58) have been already picked out in the 
+Three neurons (49, 57 and 58) have been already picked out in the 
 section __Clustering interpretation__ for having prototypes rather different
 than the rest of the map. The graphics just above confirm this hypothesis: there
 a noticeable peak in prototype distances around these 4 neurons. The MDS
@@ -203,7 +236,7 @@ the argument ```quality.type```.
 
 The topographic error value varies between 0 (good projection quality) and 1 
 (poor projection quality). Here, the topographic quality of the mapping is 
-rather good with a topographic error equal to 0.34.
+quite good with a topographic error equal to 0.14.
 
 The quantization error is an unbounded positive number. The closest from 0 it
 is, the best the projection quality is.
@@ -244,7 +277,7 @@ Case ```"dendro3d"``` plots a 3d dendrogram.
 plot(my.sc, type="grid", plot.legend=TRUE)
 plot(my.sc, type="dendro3d")
 ```
-The 4 different neurons mentionned earlier have been gathered together in the 
+The 3 different neurons mentionned earlier have been gathered together in the 
 super cluster 3.
 
 
@@ -264,13 +297,15 @@ plot(my.sc, type="color", view="c", variable="JOSPIN")
 plot(my.sc, type="poly.dist")
 ```
 
-Let us consider the third super cluster. It contains:
+Let us consider the third super cluster. It contains 3 departments and 1 
+candidate:
 ```{r DOM, echo=FALSE}
 names(korresp.som$clustering)[which(korresp.som$clustering %in%
                                       which(my.sc$cluster==3))]
 ```
-which are 3 biggest overseas departements. These departements, regarding history 
-and culture, are different from metropolitan France thus they also have a 
-different but common election behaviour. Particularly, during the 2002 French
-presidential election, they strongly promoted Christine Taubira a woman
+The departments are the 3 biggest overseas departements. These departements, 
+regarding history and culture, are different from metropolitan France thus they 
+also have a different but common election behaviour. Particularly, during the 
+2002 French presidential election, they strongly promoted Christine Taubira, 
+who is actually the candidate assigned to this super cluster, a woman 
 originated from one of the overseas departements.

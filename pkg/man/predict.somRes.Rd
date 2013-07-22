@@ -35,11 +35,8 @@ Nathalie Villa-Vialaneix \email{nathalie.villa@univ-paris1.fr}
 
 \examples{
 set.seed(2343)
-my.som <- trainSOM(x.data=iris[,1:4], dimension=c(5,5))
-# in the final classification the first observation is assigned to...
-my.som$clustering[1]
-# try predict on this observation
-predict(my.som, iris[1,1:4])
+my.som <- trainSOM(x.data=iris[-100,1:4], dimension=c(5,5))
+predict(my.som, iris[100,1:4])
 }
 
 \keyword{cluster}

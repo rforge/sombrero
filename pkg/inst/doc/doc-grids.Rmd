@@ -1,13 +1,18 @@
+<!--
+%\VignetteEngine{knitr}
+%\VignetteIndexEntry{A basic vignettes on grids in SOMbrero}
+-->
+
 # Self-Organizing Maps with ```SOMbrero```
 
-#### Laura BENDHAÏBA, Madalina OLTEANU, Nathalie VILLA-VIALANEIX
+#### Laura BENDHAIBA, Madalina OLTEANU, Nathalie VILLA-VIALANEIX
 
 ## Definition and purpose of a myGrid class object
 
 Objects of class myGrid are made to depict a grid. To be able to create such 
 objects, you have to load the package ```SOMbrero```.
 
-```{r loading}
+```{r loading, results='hide', echo=FALSE, warning=FALSE, message=FALSE}
 library(SOMbrero)
 ```
 
@@ -47,7 +52,7 @@ choosen object. The only argument is the object to be printed.
 
 Considering the previously initialized grid, the print command is:
 
-```{r}
+```{r plotFirstGrid}
 print(my.first.grid)
 ```
 
@@ -73,7 +78,7 @@ this color. Yan can also give many colors: in this case, the number of colors
 must match the total number of squares. The map is filled from the bottom left
 corner, up in the column and then the same in the next right column.
 
-```{r}
+```{r plotRainbowGrid}
 # plot without any color specification: squares are filled in white color
 plot(my.first.grid)
 

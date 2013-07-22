@@ -38,21 +38,6 @@ words2Freq <- function(words, clustering, the.grid, type) {
   return(freq.words)
 }
 
-calculateOneNeiDist <- function(ind, distances, the.grid) {
-  cur.coords <- the.grid$coord[ind,]
-  neighbors <- selectNei(ind, the.grid, 1)
-  neighbors <- neighbors[!is.na(neighbors)]
-  neighbors <- setdiff(neighbors, ind)
-  distances[ind,neighbors]
-}
-
-calculateNeighborDists <- function(prototypes, the.grid) {
-  distances <- as.matrix(dist(prototypes, upper=TRUE, diag=TRUE))
-  nei.distances <- sapply(1:prod(the.grid$dim), calculateOneNeiDist, distances,
-                          the.grid)
-  nei.distances
-}
-
 projectGraph <- function(the.graph, clustering, the.grid) {
   # TODO: improve it to handle weighted graphs and directed graphs
   all.neurons <- 1:prod(the.grid$dim)
@@ -61,7 +46,7 @@ projectGraph <- function(the.graph, clustering, the.grid) {
   p.edges.weights <- NULL
   v.sizes <- length(as.vector(V(the.graph)[which(clustering==
                                                    nonempty.neurons[1])]))
-  for (neuron in nonempty.neurons[-length(nonempty.neurons)]) {
+  for (neuron in nonempty.neurons[-1]) {
     v.neuron <- as.vector(V(the.graph)[which(clustering==neuron)])
     v.sizes <- c(v.sizes,length(v.neuron))
     for (neuron2 in setdiff(nonempty.neurons,1:neuron)) {
@@ -264,10 +249,7 @@ plotRadar <- function(x,the.grid,what,print.title,the.titles,args) {
   args$locations <- the.grid$coord
   if (is.null(args$draw.segments)) args$draw.segments <- TRUE
   if (is.null(args$len)) args$len <- 0.4
-  if (is.null(args$mar)) args$mar <- c(0,10,1,0)
-  if (is.null(args$key.loc)) args$key.loc <- c(-0.5,5)
   do.call("stars", args)
-  par(mar=c(5, 4, 4, 2)+0.1)
 }
 
 plot3d <- function(x, the.grid, type, variable, args) {
@@ -290,7 +272,7 @@ plot3d <- function(x, the.grid, type, variable, args) {
 plotOnePolygon <- function(ind, values, the.grid, col) {
   ## FIX IT think about a more general way to implement it
   cur.coords <- the.grid$coord[ind,]
-  if (the.grid$topo=="square" & the.grid$dist.type=="maximum") {
+  if (the.grid$topo=="square") {
     neighbors <- match(paste(rep((cur.coords[1]-1):(cur.coords[1]+1),c(3,3,3)),
                              rep((cur.coords[2]-1):(cur.coords[2]+1),3)), 
                        paste(the.grid$coord[,1],the.grid$coord[,2]))
@@ -306,22 +288,6 @@ plotOnePolygon <- function(ind, values, the.grid, col) {
       cur.coords + (n.coords-cur.coords)*values[ind2]
     }))
     poly.coord <- poly.coord[c(1,4,6,7,8,5,3,2),]
-    polygon(poly.coord, col=col)
-  } else if (the.grid$topo=="square" & the.grid$dist.type=="euclidean") {
-    neighbors <- match(paste(rep((cur.coords[1]-1):(cur.coords[1]+1),c(1,2,1)),
-                             cur.coords[2]+c(0,-1,1,0)), 
-                       paste(the.grid$coord[,1],the.grid$coord[,2]))
-    poly.coord <- matrix(nrow=4, ncol=2)
-    poly.coord[is.na(neighbors),] <- tcrossprod(rep(1,sum(is.na(neighbors))),
-                                                cur.coords)
-    active.indexes <- setdiff(1:4,which(is.na(neighbors)))
-    poly.coord[active.indexes,] <- t(sapply(seq_along(active.indexes),
-                                            function(ind2) {
-      n.ind <- neighbors[active.indexes[ind2]]
-      n.coords <- the.grid$coord[n.ind,]
-      cur.coords + (n.coords-cur.coords)*values[ind2]
-    }))
-    poly.coord <- poly.coord[c(1,2,4,3),]
     polygon(poly.coord, col=col)
   } else {
     stop("Sorry: 'polygon' is still to be implemented for this dist.type or/and
@@ -361,9 +327,9 @@ plotPrototypes <- function(sommap, type, variable, my.palette, print.title,
             immediate.=TRUE)
     type <- "lines"
   }
-  # korresp control
-  if (sommap$parameters$type=="korresp" && type%in%c("barplot", "radar"))
-    stop("prototypes/", type, " plot is not available for 'korresp'\n", 
+  # relational control
+  if (sommap$parameters$type=="relational" && type %in% c("color", "3d"))
+    stop("prototypes/", type, " plot is not available for 'relational'\n", 
          call.=TRUE)
   
   if (type=="lines" || type=="barplot") {
@@ -380,7 +346,15 @@ plotPrototypes <- function(sommap, type, variable, my.palette, print.title,
                      is.scaled=is.scaled,
                      the.grid=sommap$parameters$the.grid,args=args)
   } else if (type=="radar") {
-    plotRadar(sommap$prototypes, sommap$parameters$the.grid, "prototypes",
+    if (sommap$parameters$type=="korresp") {
+      if (view=="r")
+        tmp.proto <- sommap$prototypes[,(ncol(sommap$data)+1):
+                                         ncol(sommap$prototypes)]
+      else
+        tmp.proto <- sommap$prototypes[,1:ncol(sommap$data)]
+    } else
+      tmp.proto <- sommap$prototypes
+    plotRadar(tmp.proto, sommap$parameters$the.grid, "prototypes",
               print.title, the.titles, args)
   } else if (type=="color") {
     if (length(variable)>1) {
@@ -411,8 +385,14 @@ plotPrototypes <- function(sommap, type, variable, my.palette, print.title,
       tmp.var <- variable
     plot3d(sommap$prototypes, sommap$parameters$the.grid, type, tmp.var, args)
   } else if (type=="poly.dist") {
-    values <- calculateNeighborDists(sommap$prototypes, 
-                                     sommap$parameters$the.grid)
+    values <- calculateProtoDist(sommap$prototypes, sommap$parameters$the.grid,
+                                 sommap$parameters$type, FALSE, sommap$data)
+    if (sommap$parameters$type=="relational") {
+      if (sum(unlist(values)<0)>0) {
+        stop("Impossible to plot 'poly.dist'!", call.=TRUE)
+      } else values <- lapply(values,sqrt)
+    }
+
     maxi <- max(unlist(values))
     values <- lapply(values, function(x) 0.429*((maxi-x)/maxi+0.05))
     plotPolygon(values, sommap$clustering, sommap$parameters$the.grid,
@@ -423,8 +403,13 @@ plotPrototypes <- function(sommap, type, variable, my.palette, print.title,
            labels=the.titles, cex=0.7)
     }
   } else if (type=="umatrix" || type=="smooth.dist") {
-    values <- calculateNeighborDists(sommap$prototypes, 
-                                     sommap$parameters$the.grid)
+    values <- calculateProtoDist(sommap$prototypes, sommap$parameters$the.grid,
+                                 sommap$parameters$type, FALSE, sommap$data)
+    if (sommap$parameters$type=="relational") {
+      if (sum(unlist(values)<0)>0) {
+        stop("Impossible to plot 'smooth.dist'!", call.=TRUE)
+      } else values <- lapply(values,sqrt)
+    }
     values <- unlist(lapply(values,mean))
     if (type=="umatrix") {
       plotColor("prototypes", values, sommap$clustering, 
@@ -442,7 +427,16 @@ plotPrototypes <- function(sommap, type, variable, my.palette, print.title,
       do.call("filled.contour", args)
     }
   } else if (type=="mds") {
-    proj.coord <- cmdscale(dist(sommap$prototypes),2)
+    if (sommap$parameters$type=="relational") {
+      the.distances <- calculateProtoDist(sommap$prototypes,
+                                          sommap$parameters$the.grid, 
+                                          "relational", TRUE, sommap$data)
+      if (sum(the.distances<0)>0) {
+        stop("Impossible to plot 'MDS'!", call.=TRUE)
+      } else the.distances <- sqrt(the.distances)
+    }
+    else the.distances <- dist(sommap$prototypes)
+    proj.coord <- cmdscale(the.distances, 2)
     args$x <- proj.coord[,1]
     args$y <- proj.coord[,2]
     if (is.null(args$pch)) args$type <- "n"
@@ -460,7 +454,18 @@ plotPrototypes <- function(sommap, type, variable, my.palette, print.title,
     do.call("plot", args)
     text(proj.coord,the.labels,cex=args$cex,col=args$col)
   } else if (type=="grid.dist") {
-    args$x <- as.vector(dist(sommap$prototypes))
+    if (sommap$parameters$type=="relational") {
+      the.distances <- calculateProtoDist(sommap$prototypes,
+                                          sommap$parameters$the.grid, 
+                                          "relational", TRUE, sommap$data)
+     if (sum(the.distances<0)>0) {
+      stop("Impossible to plot 'grid.dist'!", call.=TRUE)
+     } else {
+       the.distances <- sqrt(the.distances)
+       the.distances <- the.distances[lower.tri(the.distances)]
+     }
+    } else the.distances <- dist(sommap$prototypes)
+    args$x <- as.vector(the.distances)
     args$y <- as.vector(dist(sommap$parameters$the.grid$coord))
     if (is.null(args$pch)) args$pch <- '+'
     if (is.null(args$xlab)) args$xlab <- "prototype distances"
@@ -480,10 +485,17 @@ plotObs <- function(sommap, type, variable, my.palette, print.title, the.titles,
             immediate.=TRUE)
     type <- "hitmap"
   }
+
   # korresp control
   if (sommap$parameters$type=="korresp" && !(type%in%c("hitmap", "names"))) {
     warning("korresp SOM: incorrect type replaced by 'hitmap'\n", call.=TRUE, 
             immediate.=TRUE)
+    type <- "hitmap"
+  }
+  # relational control
+  if (sommap$parameters$type=="relational" && !(type%in%c("hitmap", "names"))) {
+    warning("relational SOM: incorrect type replaced by 'hitmap'\n", 
+            call.=TRUE, immediate.=TRUE)
     type <- "hitmap"
   }
   
@@ -692,13 +704,9 @@ plotAdd <- function(sommap, type, variable, proportional, my.palette,
                                sommap$parameters$the.grid)
     args$x <- proj.graph
     args$edge.width <- E(proj.graph)$nb.edges/max(E(proj.graph)$nb.edges)*10
-    if (is.null(s.radius)) {
-      args$vertex.size <- 10*sqrt(V(proj.graph))$sizes/
-        max(sqrt(V(proj.graph)$sizes))
-    } else {
-      args$vertex.size <- s.radius*10*sqrt(V(proj.graph))$sizes/
-        max(sqrt(V(proj.graph)$sizes))
-    }
+    if (is.null(s.radius)) s.radius <- 1
+    args$vertex.size <- s.radius*20*sqrt(V(proj.graph)$sizes)/
+      max(sqrt(V(proj.graph)$sizes))
     if (is.null(args$vertex.label) & !print.title) args$vertex.label <- NA
     if (is.null(args$vertex.label) & print.title) 
       args$vertex.label <- the.titles[as.numeric(V(proj.graph)$name)]
@@ -741,8 +749,8 @@ plot.somRes <- function(x, what=c("obs", "prototypes", "energy", "add"),
                         variable = if (what=="add") NULL else 
                           if (type=="boxplot") 1:min(5,ncol(x$data)) else 1,
                         my.palette=NULL, 
-                        is.scaled = if (x$parameters$type=="korresp") FALSE else
-                          TRUE, 
+                        is.scaled = if (x$parameters$type=="numeric") TRUE else
+                          FALSE,
                         proportional=TRUE, print.title=FALSE, s.radius=1, 
                         pie.graph=FALSE, pie.variable=NULL,
                         the.titles=if (what!="energy") 
@@ -755,7 +763,7 @@ plot.somRes <- function(x, what=c("obs", "prototypes", "energy", "add"),
                         view = if (x$parameters$type=="korresp") "r" else NULL,
                         ...) {
   args <- list(...)
-  match.arg(what)
+  what <- match.arg(what)
   if ((x$parameters$type=="korresp")&&!(view%in%c("r","c")))
       stop("view must be one of 'r'/'c'",call.=TRUE)
   if (length(the.titles)!=prod(x$parameters$the.grid$dim) & what!="energy") {

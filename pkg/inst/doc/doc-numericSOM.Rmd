@@ -1,3 +1,8 @@
+<!--
+%\VignetteEngine{knitr}
+%\VignetteIndexEntry{SOM for numeric data}
+-->
+
 # Using Self-Organizing Maps with ```SOMbrero``` to cluster a numeric dataset
 
 #### Laura BENDHAIBA, Madalina OLTEANU, Nathalie VILLA-VIALANEIX
@@ -30,6 +35,36 @@ for further details).
 
 The ```trainSOM``` function returns an object of class ```somRes``` (see 
 ```help(trainSOM)``` for further details on this class).
+
+### Graphics
+
+The following table indicates which graphics are available for a numeric SOM.
+
+Type        |   Energy  |   Obs |   Prototypes  |   Add   |   Super Cluster
+------------|:---------:|:-----:|:-------------:|:-------:|:----------------:
+no type     |   x       |       |               |         |
+hitmap      |           |   x   |               |         |         x
+color       |           |   x   |       x       |   x     |         x2
+lines       |           |   x   |       x       |   x     |         x2
+barplot     |           |   x   |       x       |   x     |         x2
+radar       |           |   x   |       x       |   x     |         x2
+pie         |           |       |               |   x     |         x
+boxplot     |           |   x   |               |   x     |         x2
+3d          |           |       |       x       |         |
+poly.dist   |           |       |       x       |         |         x
+umatrix     |           |       |       x       |         |
+smooth.dist |           |       |       x       |         |
+words       |           |       |               |   x     |
+names       |           |   x   |               |   x     |
+graph       |           |       |               |   x     |         x
+mds         |           |       |       x       |         |         x
+grid.dist   |           |       |       x       |         |         
+grid        |           |       |               |         |         x
+dendrogram  |           |       |               |         |         x
+dendro3d    |           |       |               |         |         x
+
+The plots marked by "x2", in the "Super Cluster" column, are available for 
+both data set variables and additional variables. 
 
 ## First case study: simulated data in [0,1]^2
 
@@ -213,7 +248,7 @@ plot(iris.som, what="obs", type="color", variable=4, print.title=TRUE,
      main="Petal width")
 plot(iris.som, what="prototypes", type="lines", print.title=TRUE)
 plot(iris.som, what="obs", type="barplot", print.title=TRUE)
-plot(iris.som, what="obs", type="radar", print.title=TRUE)
+plot(iris.som, what="obs", type="radar", key.loc=c(-0.5,5), mar=c(0,10,2,0))
 ```
 
 The first thing that catch the attention is these 2 empty squares: none of the 
@@ -372,8 +407,8 @@ argument ```quality.type```.
 
 The topographic error value varies between 0 (good projection quality) and 1 
 (poor projection quality). Here, the topographic quality of the mapping is 
-quite good with a topographic error equal to 0.06 that corresponds
-to `r nrow(iris)*0.06` samples for which the second best matching unit is not
+quite good with a topographic error equal to 0.05 that corresponds
+to `r nrow(iris)*0.05` samples for which the second best matching unit is not
 in the direct neighborhood of the best matching unit.
 
 The quantization error is an unbounded positive number. The closest from 0 it
@@ -437,7 +472,7 @@ And some others identify the super clusters with titles:
 plot(my.sc, type="color")
 plot(my.sc, type="poly.dist")
 plot(my.sc, type="pie", variable=iris$Species)
-plot(my.sc, type="radar")
+plot(my.sc, type="radar", key.loc=c(-0.5,5), mar=c(0,10,2,0))
 ```
 
 It is also possible to consider an additional variable using the 
@@ -446,55 +481,9 @@ argument ```add.variable```:
 plot(my.sc, type="color", add.type=TRUE, variable=iris$Sepal.Length)
 ```
 
-All these graphics help to see that super-cluster number 2 is found in the upper
-left corner of the map and contains only flowers of the "setosa" species. Super
-cluster number 3 is in the upper right corner of the map and contains mostly
-flowers of the "versicolor" species. The last super-cluster is located in the
-half lower part of the map and contains flowers of the species "versicolor" and
-"setosa".
-
-## Third case study: data from package ```GeneNet```
-
-Our last case study is performed on the data ```arth800``` from the
-package ```GeneNet```.
-
-### Train the SOM algorithm
-
-As it is figured out by the ```summary``` function, this data set provides 
-measurements on 22 variables (22 genes) at 11 different time points. As there 
-are some repeated measurements, there are 800 measurements per variable (per 
-gene).
-
-```{r GeneNetSOM}
-data(arth800, package="SOMbrero")
-summary(arth800.expr)
-```
-
-```{r trainARTH800, cache=TRUE}
-set.seed(1632)
-gene.som <- trainSOM(x.data=arth800.expr, dimension=c(5,5))
-```
-
-### Clustering interpretation
-
-##### To an ```igraph``` object
-
-The last available plot for a ```somRes``` object is ```"graph"```. Then, the 
-argument ```variable``` must be given an ```igraph``` object. A new graph is 
-plotted where a vertex represents a neuron and the width of an edge between 2 
-vertices is proportional to the number of edges in the ```igraph``` object 
-between the observations of these 2 neurons.
-Here we chose the graph inferred from the ```arth800``` expression data using
-the functions ```ggm.estimate.pcor``` and ```ggm.test.edges``` of the package
-```GeneNet```. This graph is included in the example dataset in the **R**
-```igraph``` object ```arth800.graph```.
-```{r GeneNetGraph}
-class(arth800.graph)
-summary(arth800.graph)
-plot(gene.som, what="add", type="graph", pie.graph=FALSE, 
-     variable=arth800.graph, edge.curved=TRUE, s.radius=0.3, print.title=TRUE)
-```
-The graph vertices are the neurons of the grid. If there is a vertex missing, 
-it means that this vertex is empty of observations. The width of the edge 
-between 2 vertices is proportional to the number of edges of the original graph
-between the observations classified in the corresponding neurons.
+All these graphics help to see that super-cluster number 1 is found in the lower
+left corner of the map and contains only flowers of the "verginica" species. 
+Super cluster number 3, on the top of the map, contains mostly
+flowers of the "setosa" species. The last super-cluster is located in the
+half right part of the map and contains flowers of the species "versicolor" and
+"virginica".

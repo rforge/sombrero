@@ -18,10 +18,10 @@ parameters given to the algorithm (see \code{\link{initSOM}} and
 \tabular{ll}{
 Package: \tab SOMbrero\cr
 Type: \tab Package\cr
-Version: \tab 0.3\cr
-Date: \tab 2013-06-14\cr
-License: GPL-2\cr
-URL: \tab SOMbrero \url{http://www.nathalievilla.org/spip.php?article90} \cr
+Version: \tab 0.4\cr
+Date: \tab 2013-07-22\cr
+License: \tab GPL (>= 2)\cr
+URL: \tab \url{http://sombrero.r-forge.r-project.org/} \cr
 }
 The version of the SOM algorithm implemented in this package is the stochastic
 version.
@@ -39,14 +39,24 @@ Nathalie Villa-Vialaneix \email{nathalie.villa@univ-paris1.fr}
 
 Maintainer: Nathalie Villa-Vialaneix \email{nathalie.villa@univ-paris1.fr}
 }
-\references{
-Teuvo Kohonen (2001) Self-Organizing Maps. Springer-Verlag, Berlin and 
-Heidelberg, 3rd edition.
+\references{         
+Kohonen T. (2001) \emph{Self-Organizing Maps}. Berlin/Heidelberg:
+Springer-Verlag, 3rd edition.
 
-Marie Cottrell, Patrick Letremy and Elisabeth Roy (1993) Analyzing a contingency
-table with Kohonen maps: a Factorial Correspondence Analysis. In: Proceedings of
+Cottrell, M., Letremy, P., Roy, E. (1993) Analyzing a contingency table with
+Kohonen maps: a Factorial Correspondence Analysis. In: \emph{Proceedings of
 IWANN'93, J. Cabestany, J. Mary, A. Prieto (Eds.), Lecture Notes in Computer
-Science, Springer-Verlag, 305-311.
+Science}, Springer-Verlag, 305--311.
+
+Letremy, P. (2005) Programmes bases sur l'algorithme de Kohonen et dedies a
+l'analyse des donnees. SAS/IML programs for 'korresp'.
+\url{http://samos.univ-paris1.fr/Programmes-bases-sur-l-algorithme}.
+
+Olteanu, M., Villa-Vialaneix, N., Cottrell, M. (2012) On-line
+relational SOM for dissimilarity data. In: \emph{Advances in Self-Organizing
+Maps (Proceedings of WSOM 2012, Santiago, Chili, 12-14 decembre 2012), Estevez
+P., Principe J., Zegers P., Barreto G. (eds.), 'Advances in Intelligent Systems
+and Computing' series}, Berlin/Heidelberg: Springer Verlag, \bold{198}, 13--22.
 }
 \seealso{
 \code{\link{initGrid}}, \code{\link{trainSOM}} and \code{\link{plot.somRes}}.

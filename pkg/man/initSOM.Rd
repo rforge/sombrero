@@ -12,13 +12,16 @@ contains the parameters needed to run the SOM algorithm.
 }
 \usage{
 initSOM(dimension=c(5,5), topo=c("square"),
-                    dist.type=c("maximum","euclidean","manhattan","canberra",
-                                "binary","minkowski"),
+                    dist.type=c("letremy", "maximum","euclidean","manhattan",
+                    "canberra","binary","minkowski"),
                     type=c("numeric", "relational", "korresp"), 
                     mode=c("online"), 
                     maxit=500, nb.save=0, verbose=FALSE, proto0=NULL, 
                     init.proto=c("random","obs"), 
-                    scaling=c("unitvar","none","center", "chi2"), 
+                    scaling=switch(type,
+                                   "numeric"="unitvar",
+                                   "relational"="none",
+                                   "korresp"="chi2"), 
                     radius.type=c("letremy"))
 \method{print}{paramSOM}(x, \ldots)
 \method{summary}{paramSOM}(object, \ldots)
@@ -29,10 +32,12 @@ initSOM(dimension=c(5,5), topo=c("square"),
   values are: \code{(5,5)}.}
   \item{topo}{The topology to be used to build the grid of the \code{myGrid} 
   class object. Default value is \code{square}.}
-  \item{dist.type}{The neighborhood relationship on the grid. The possible
-  values are those of the option \code{method} of the function
-  \code{\link[stats]{dist}}. Default value is \code{maximum}.}
-  \item{type}{The SOM algorithm type. Default value is \code{numeric}.}
+  \item{dist.type}{The neighborhood relationship on the grid. Default value is
+  \code{"letremy"} which is the original implementation from Patrick Letremy.
+  The other possible values are the   values passed to \code{method} in the
+  function \code{\link[stats]{dist}}.}
+  \item{type}{The SOM algorithm type. Possible values are: \code{numeric} 
+  (default value), \code{korresp} and \code{relational}.}
   \item{mode}{The SOM algorithm mode. Default value is \code{online}.}
   \item{maxit}{The maximum number of iterations to be done during the SOM 
   algorithm process. Default value is \code{500}.}
@@ -46,12 +51,12 @@ initSOM(dimension=c(5,5), topo=c("square"),
   argument is only considered when \code{proto0=NULL}. Default value is 
   \code{random}.}
   \item{scaling}{The type of data pre-processing. For numeric SOM, 
-  possibilities are \code{unitvar} (which is the default value), \code{none} 
-  and \code{center}. For korresp SOM, pre-processing must be \code{chi2}.}
-  \item{radius.type}{The neighbourhood type. Default value is \code{letremy}.}
-
-
-
+  possibilities are \code{unitvar} (which is the default value for a 
+  \code{numeric} SOM), \code{none} (which is the only value allowed for a 
+  \code{relational} SOM), \code{center} and \code{chi2} (which is only 
+  available for a \code{korresp} SOM and is also its default value).}
+  \item{radius.type}{The neighbourhood type. Default value is \code{"letremy"},
+  which corresponds to the original implementation from Patrick Letremy.}
   \item{x, object}{an object of class \code{paramSOM}.}
   \item{\ldots}{not used}
 }
@@ -63,6 +68,11 @@ parameters for whose which were not set by the user.
 \author{Laura Bendhaiba \email{laurabendhaiba@gmail.com}\cr
 Madalina Olteanu \email{madalina.olteanu@univ-paris1.fr}\cr
 Nathalie Villa-Vialaneix \email{nathalie.villa@univ-paris1.fr}
+}
+\references{
+Letremy, P. (2005) Programmes bases sur l'algorithme de Kohonen et dedies a
+l'analyse des donnees. SAS/IML programs for 'korresp'.
+\url{http://samos.univ-paris1.fr/Programmes-bases-sur-l-algorithme}.
 }
 \seealso{
 See \link{initGrid} for creating a SOM prior structure (grid).

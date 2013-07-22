@@ -14,9 +14,18 @@ dendro3dProcess <- function(v.ind, ind, tree, coord, mat.moy, scatter) {
 }
 
 ########################## super classes V0.2 #################################
-superClass <- function(sommap, method="ward", members=NULL, k=NULL, h=NULL) {
-  d <- dist(sommap$prototypes)
-  hc <- hclust(d^2, method, members)
+superClass.somRes <- function(sommap, method="ward", members=NULL, k=NULL,
+                              h=NULL, ...) {
+  if (sommap$parameters$type=="relational") {
+    the.distances <- calculateProtoDist(sommap$prototypes,
+                       sommap$parameters$the.grid, 
+                       "relational", TRUE, sommap$data)
+    if (sum(the.distances<0)>0) {
+      stop("Impossible to make super clustering!", call.=TRUE)
+    } else the.distances <- as.dist(the.distances)
+  }
+  else the.distances <- dist(sommap$prototypes)^2
+  hc <- hclust(the.distances, method, members)
   if (!is.null(k) || !is.null(h)) {
     sc <- cutree(hc, k, h)
     res <- list("cluster"=as.numeric(sc), "tree"=hc, "som"=sommap)
@@ -25,6 +34,10 @@ superClass <- function(sommap, method="ward", members=NULL, k=NULL, h=NULL) {
   }
   class(res) <- "somSC"
   return(res)
+}
+
+superClass <- function(sommap, method, members, k, h,...) {
+  UseMethod("superClass")
 }
 
 ################################ S3 functions #################################
@@ -143,9 +156,13 @@ plot.somSC <- function(x, type=c("dendrogram", "grid", "hitmap", "lines",
       } else if (type %in% c("hitmap", "lines", "barplot", "boxplot", "mds",
                              "color", "poly.dist", "pie", "graph", "radar")) {
         if ((x$som$parameters$type=="korresp") && 
-              (type %in% c("barplot", "boxplot", "pie", "graph", "radar")))
+              (type %in% c("boxplot", "pie", "graph")))
             stop(type, " plot is not available for 'korresp' super classes\n", 
                  call.=TRUE)
+        if ((x$som$parameters$type=="relational") && 
+              (type %in% c("boxplot", "color")))
+          stop(type, " plot is not available for 'relational' super classes\n", 
+               call.=TRUE)
           
         if ((type%in%c("poly.dist", "radar"))&(plot.legend)) {
           plot.legend <- FALSE
