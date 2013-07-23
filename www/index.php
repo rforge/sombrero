@@ -62,7 +62,13 @@ or, alternatively,
 <pre>
 install.packages("SOMbrero", repos="http://R-Forge.R-project.org", type="source")
 </pre>
-if you are using a Mac.</li>
+if you are using a Mac.<br>
+<div style="background-color: pink; border:solid"><strong>Important warning</strong><br>
+Direct installation from R-Forge is temporarily unavailable. Alternatively, you can download one of the two following files and directly install the package:
+<ul><li><a href="http://tuxette.nathalievilla.org/wp-content/uploads/2013/07/SOMbrero_0.4.tar.gz"><em>Source package</em></a>;</li>
+<li><a href="http://tuxette.nathalievilla.org/wp-content/uploads/2013/07/SOMbrero_0.4.zip"><em>Windows package</em></a>.</li></ul>
+<br>
+</div></li>
 </ul>
 
 <p style="color:#A558B4"><em>Remember that this package has been developped only by girls. Default colors may not be suited for men.</em></p>
