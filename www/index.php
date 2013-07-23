@@ -73,5 +73,15 @@ Direct installation from R-Forge is temporarily unavailable. Alternatively, you 
 
 <p style="color:#A558B4"><em>Remember that this package has been developped only by girls. Default colors may not be suited for men.</em></p>
 
+To cite the package, please use:
+<ul>
+<li>
+Villa-Vialaneix N., Bendhaiba L., Olteanu M. (2013) <em>SOMbrero: SOM Bound to Realize Euclidean and Relational Outputs</em>. R package version 0.4.
+</li>
+<li>Olteanu M., Villa-Vialaneix N., Cottrell M. (2012) On-line relational SOM for dissimilarity data. <em>Advances in Self-Organizing Maps (Proceedings of WSOM 2012, Santiago, Chili, 12-14 decembre 2012), Estevez P., Principe  J., Zegers P., Barreto G. (eds.), Advances in Intelligent Systems and Computing series</em>, Berlin/Heidelberg:  Springer Verlag, <b>198</b>, 13-22.</li></ul>
+
+<p style="color:#A558B4"><em>Remember that this package has been developped only by girls. Default colors may not be suited for men.</em></p>
+
 </body>
 </html>
+
