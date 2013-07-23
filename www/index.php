@@ -49,9 +49,9 @@ echo $contents; } ?>
 <!-- end of project description -->
 
 <ul>
-<li>You can find the <strong>project summary page</strong> <a href="http://<?php echo $domain; ?>/projects/<?php echo $group_name; ?>/">here</a>. </li>
-<li>You can find the <strong>project webpage</strong> with various documents <a href="http://tuxette.nathalievilla.org/?p=1099&lang=en">here</a>.</li>
-<li><strong>Package's vignettes</strong> (detailed use cases) are also available for <a href="./doc-numericSOM.html">numeric data</a>,
+<li>Find the <strong>project summary page</strong> <a href="http://<?php echo $domain; ?>/projects/<?php echo $group_name; ?>/">here</a>. </li>
+<li>Find the <strong>project webpage</strong> with various documents <a href="http://tuxette.nathalievilla.org/?p=1099&lang=en">here</a>.</li>
+<li>Download the <a href="./SOMbrero-manual.pdf">manual</a>.</li><li><strong>Package's vignettes</strong> (detailed use cases) are also available for <a href="./doc-numericSOM.html">numeric data</a>,
 for <a href="./doc-korrespSOM.html">contingency tables</a> and for <a href="./doc-relationalSOM.html">dissimilarity data</a>.
 An overview of the package is given in the <a href="./doc-SOMbrero-package.html">package's main vignette</a>.</li>
 <li>You can find the <strong>download page</strong> <a href="https://r-forge.r-project.org/R/?group_id=1707">here</a>. Installation is done by using the R install command:
