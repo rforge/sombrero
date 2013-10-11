@@ -51,6 +51,7 @@ echo $contents; } ?>
 <ul>
 <li>Find the <strong>project summary page</strong> <a href="http://<?php echo $domain; ?>/projects/<?php echo $group_name; ?>/">here</a>. </li>
 <li>Find the <strong>project webpage</strong> with various documents <a href="http://tuxette.nathalievilla.org/?p=1099&lang=en">here</a>.</li>
+<li>Find a Web User Interface, based on <a href="http://www.rstudio.com/shiny/">shiny</a>, <a href="http://shiny.nathalievilla.org/sombrero">here</a> (SOMbrero WUI, v0.1 based on SOMbrero v0.4).</li>
 <li>Download the <a href="./SOMbrero-manual.pdf">manual</a>.</li><li><strong>Package's vignettes</strong> (detailed use cases) are also available for <a href="./doc-numericSOM.html">numeric data</a>,
 for <a href="./doc-korrespSOM.html">contingency tables</a> and for <a href="./doc-relationalSOM.html">dissimilarity data</a>.
 An overview of the package is given in the <a href="./doc-SOMbrero-package.html">package's main vignette</a>.</li>
