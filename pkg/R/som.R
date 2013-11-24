@@ -363,8 +363,7 @@ trainSOM <- function (x.data, ...) {
     radius <- calculateRadius(parameters$the.grid, parameters$radius.type,
                               ind.t, parameters$maxit)
     the.nei <- selectNei(winner, parameters$the.grid, radius)
-    # TODO: scale epsilon with a parameter???
-    epsilon <- 0.3/(1+0.2*ind.t/prod(parameters$the.grid$dim))
+    epsilon <- 0.3*parameters$eps0/(1+0.2*ind.t/prod(parameters$the.grid$dim))
     # Update
     prototypes[the.nei,] <- prototypeUpdate(parameters$type, the.nei, epsilon, 
                                             prototypes, rand.ind, sel.obs)
@@ -463,7 +462,8 @@ summary.somRes <- function(object, ...) {
   cat("\nSummary\n\n")
   cat("      Class : ", class(object),"\n\n")
   print(object)
-  cat("\n      Final energy:", object$energy,"\n")
+  cat("\n      Final energy     :", object$energy,"\n")
+  cat("      Topographic error:", topographicError(object), "\n")
   if (object$parameters$type=="numeric") {
     cat("\n      ANOVA                : \n")
     res.anova <- as.data.frame(t(sapply(1:ncol(object$data), function(ind) {

@@ -5,12 +5,15 @@ initSOM <- function(dimension=c(5,5), topo=c("square"),
                     type=c("numeric", "relational", "korresp"), 
                     mode=c("online"), 
                     maxit=500, nb.save=0, verbose=FALSE, proto0=NULL, 
-                    init.proto=c("random","obs"), 
+                    init.proto=switch(type,
+                                      "numeric"="random",
+                                      "relational"="obs",
+                                      "korresp"="random"), 
                     scaling=switch(type,
                                    "numeric"="unitvar",
                                    "relational"="none",
                                    "korresp"="chi2"), 
-                    radius.type=c("letremy")) {
+                    radius.type=c("letremy"), eps0=1) {
   type <- match.arg(type)
   # check scaling compatibility
   if (type=="korresp" && scaling!="chi2") {
@@ -50,11 +53,11 @@ initSOM <- function(dimension=c(5,5), topo=c("square"),
                                      match.arg(dist.type)),
                  type=type, mode=match.arg(mode), maxit=maxit,
                  nb.save=nb.save, proto0=proto0,
-                 init.proto=match.arg(init.proto), 
+                 init.proto=match.arg(init.proto, c("random","obs")), 
                  scaling=match.arg(scaling, c("unitvar", "none", "center", 
                                               "chi2")),
                  radius.type=match.arg(radius.type),
-                 verbose=verbose)
+                 verbose=verbose, eps0=eps0)
   
   ## TODO: to add later: other types, other modes (?), init=pca,
   # and radius.type=gaussian
