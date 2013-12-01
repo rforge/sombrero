@@ -51,7 +51,7 @@ echo $contents; } ?>
 <ul>
 <li>Find the <strong>project summary page</strong> <a href="http://<?php echo $domain; ?>/projects/<?php echo $group_name; ?>/">here</a>. </li>
 <li>Find the <strong>project webpage</strong> with various documents <a href="http://tuxette.nathalievilla.org/?p=1099&lang=en">here</a>.</li>
-<li>Find a Web User Interface, based on <a href="http://www.rstudio.com/shiny/">shiny</a>, <a href="http://shiny.nathalievilla.org/sombrero">here</a> (SOMbrero WUI, v0.1 based on SOMbrero v0.4).</li>
+<li>Find a Web User Interface, based on <a href="http://www.rstudio.com/shiny/">shiny</a>, <a href="http://shiny.nathalievilla.org/sombrero">here</a> (SOMbrero WUI, v0.1 based on SOMbrero v0.4-1).</li>
 <li>Download the <a href="./SOMbrero-manual.pdf">manual</a>.</li><li><strong>Package's vignettes</strong> (detailed use cases) are also available for <a href="./doc-numericSOM.html">numeric data</a>,
 for <a href="./doc-korrespSOM.html">contingency tables</a> and for <a href="./doc-relationalSOM.html">dissimilarity data</a>.
 An overview of the package is given in the <a href="./doc-SOMbrero-package.html">package's main vignette</a>.</li>
@@ -63,13 +63,7 @@ or, alternatively,
 <pre>
 install.packages("SOMbrero", repos="http://R-Forge.R-project.org", type="source")
 </pre>
-if you are using a Mac.<br>
-<div style="background-color: pink; border:solid"><strong>Important warning</strong><br>
-Direct installation from R-Forge is temporarily unavailable. Alternatively, you can download one of the two following files and directly install the package:
-<ul><li><a href="http://tuxette.nathalievilla.org/wp-content/uploads/2013/07/SOMbrero_0.4.tar.gz"><em>Source package</em></a>;</li>
-<li><a href="http://tuxette.nathalievilla.org/wp-content/uploads/2013/07/SOMbrero_0.4.zip"><em>Windows package</em></a>.</li></ul>
-<br>
-</div></li>
+if you are using a Mac.<br></li>
 </ul>
 
 <p style="color:#A558B4"><em>Remember that this package has been developped only by girls. Default colors may not be suited for men.</em></p>
@@ -79,6 +73,9 @@ To cite the package, please use:
 <li>
 Villa-Vialaneix N., Bendhaiba L., Olteanu M. (2013) <em>SOMbrero: SOM Bound to Realize Euclidean and Relational Outputs</em>. R package version 0.4.
 </li>
+<li>
+
+<li>Olteanu M., Villa-Vialaneix N. (2013) On-line relational and multiple relational SOM. <em>Neurocomputing</em>. <em>Forthcoming</em>.</li>
 <li>Olteanu M., Villa-Vialaneix N., Cottrell M. (2012) On-line relational SOM for dissimilarity data. <em>Advances in Self-Organizing Maps (Proceedings of WSOM 2012, Santiago, Chili, 12-14 decembre 2012), Estevez P., Principe  J., Zegers P., Barreto G. (eds.), Advances in Intelligent Systems and Computing series</em>, Berlin/Heidelberg:  Springer Verlag, <b>198</b>, 13-22.</li></ul>
 
 
