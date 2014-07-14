@@ -107,7 +107,10 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 <!-- R-Forge Logo -->
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
 <tr><td>
-<a href="http://r-forge.r-project.org/"><img src="http://<?php echo $themeroot; ?>/imagesrf/logo.png" border="0" alt="R-Forge Logo" /> </a> </td> </tr>
+<a href="http://r-forge.r-project.org/"><img src="http://<?php echo $themeroot; ?>/imagesrf/logo.png" border="0" alt="R-Forge Logo" /> </a> </td>
+<td>
+<a href=""><img src="http://tuxette.nathalievilla.org/wp-content/uploads/2013/06/sombrero.png" border="0" alt="SOMbrero" width="250" /> </a></td>
+</tr>
 </table>
 
 
@@ -116,10 +119,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 
   <div id="titleBar">
     <div id="container">
-<table border="0" width="100%" cellspacing="0" cellpadding="0">
-<tr><td>
-<a href=""><img src="http://tuxette.nathalievilla.org/wp-content/uploads/2013/06/sombrero.png" border="0" alt="SOMbrero" width="250" /> </a></td>
-<td>
+<h1>
 <?php if ($handle=fopen('http://'.$domain.'/export/projtitl.php?group_name='.$group_name,'r')){
 $contents = '';
 while (!feof($handle)) {
@@ -127,7 +127,7 @@ while (!feof($handle)) {
 }
 fclose($handle);
 echo $contents; } ?>
-</td></tr></table>
+</h1>
 </div>
 </div>
 
@@ -149,7 +149,8 @@ An overview of the package is given in the <a href="./doc-SOMbrero-package.html"
     <h2>Install SOMbrero</h2>
 Installation is done by first installing some required packages from CRAN:
 <pre>
-install.packages(c("wordcloud","igraph","RColorBrewer","scatterplot3d","knitr","shiny"), repos="http://cran.r-project.org/")
+install.packages(c("wordcloud","igraph","RColorBrewer","scatterplot3d","knitr","shiny"),
+                 repos="http://cran.r-project.org/")
 </pre>
 and then install SOMbrero directly from R-Forge:
 <pre>
@@ -160,7 +161,7 @@ or, alternatively,
 install.packages("SOMbrero", repos="http://R-Forge.R-project.org", type="source")
 </pre>
 if you are using a Mac.<br>
-In case installation from R-Forge does not work, download the package <a href="https://r-forge.r-project.org/R/?group_id=1707">here</a> and use installation from ZIP file in Windows GUI or for Unix users, the command line <code>R CMD INSTALL SOMbrero_XXX.tar.gz</code><br>
+In case installation from R-Forge does not work, download the package <a href="https://r-forge.r-project.org/R/?group_id=1707">here</a> and use installation from ZIP file in Windows GUI or for Unix users, the command line <code>R CMD INSTALL SOMbrero_XXX.tar.gz</code><br><br>
 Do not hesitate to contact <a href="mailto:tuxette[AT]nathalievilla.org">tuxette</a> if you have a problem during the installation.
 </div>
     <div id="content">
