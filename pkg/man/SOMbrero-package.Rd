@@ -19,7 +19,7 @@ parameters given to the algorithm (see \code{\link{initSOM}} and
 Package: \tab SOMbrero\cr
 Type: \tab Package\cr
 Version: \tab 0.4-2\cr
-Date: \tab 2014-09-23\cr
+Date: \tab 2014-09-25\cr
 License: \tab GPL (>= 2)\cr
 URL: \tab \url{http://sombrero.r-forge.r-project.org/} \cr
 }
@@ -29,7 +29,7 @@ version.
 Several variants able to handle non-vectorial data are also implemented in their
 stochastic versions: \code{type="korresp"} for contingency tables, as described
 in Cottrel et al., 1993 and \code{type="relational"} for dissimilarity data, as
-described in Olteanu and Villa-Vialaneix, 2013.
+described in Olteanu and Villa-Vialaneix, 2015.
 }
 
 \author{Laura Bendhaiba \email{laurabendhaiba@gmail.com}
