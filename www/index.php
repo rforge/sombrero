@@ -17,6 +17,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 
   <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="refresh" content="0; URL=http://cran.r-project.org/web/packages/SOMbrero">
 	<title><?php echo $group_name; ?></title>
 	  <style type="text/css">
     body, html {
@@ -109,7 +110,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 <tr><td>
 <a href="http://r-forge.r-project.org/"><img src="http://<?php echo $themeroot; ?>/imagesrf/logo.png" border="0" alt="R-Forge Logo" /> </a> </td>
 <td>
-<a href=""><img src="http://tuxette.nathalievilla.org/wp-content/uploads/2013/06/sombrero.png" border="0" alt="SOMbrero" width="250" /> </a></td>
+<a href=""><img src="http://tuxette.nathalievilla.org/wp-content/uploads/2013/06/sombrero.png" border="0" alt="SOMbrero" width="150" /> </a></td>
 </tr>
 </table>
 
@@ -142,20 +143,9 @@ install.packages("SOMbrero")
 </pre>
 		should be enough to install the package and its dependencies on your computer. 
 		<br><br>
-		Do not hesitate to contact <a href="mailto:tuxette[AT]nathalievilla.org">tuxette</a> if you have a problem during the installation.
+		You will be shortly redirected to the <a href="">CRAN webpage</a>
 	</div>
 	</div>
-    <div id="content">
-<p style="color:#A558B4"><em>Remember that this package has been developped only by girls. Default colors may not be suited for men.</em></p>
-		</div>
-
-To cite the package, please use:
-<ul>
-<li>
-Villa-Vialaneix N., Bendhaiba L., Olteanu M. (2015) <em>SOMbrero: SOM Bound to Realize Euclidean and Relational Outputs</em>. R package version 1.0.</li>
-<li>Olteanu M., Villa-Vialaneix N. (2015) On-line relational and multiple relational SOM. <em>Neurocomputing</em>, <strong>147</strong>, 15-30.</li>
-<li>Olteanu M., Villa-Vialaneix N., Cottrell M. (2012) On-line relational SOM for dissimilarity data. <em>Advances in Self-Organizing Maps (Proceedings of WSOM 2012, Santiago, Chili, 12-14 decembre 2012), Estevez P., Principe  J., Zegers P., Barreto G. (eds.), Advances in Intelligent Systems and Computing series</em>, Berlin/Heidelberg:  Springer Verlag, <b>198</b>, 13-22.</li></ul>
-</div>
 </div>
 </body>
 </html>
