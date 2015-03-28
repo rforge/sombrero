@@ -1,18 +1,21 @@
 Package: SOMbrero
 Title: SOM Bound to Realize Euclidean and Relational Outputs
-Version: 0.5
-Date: 2014-12-27
+Version: 1.0
+Date: 2015-03-27
 Authors@R: c(person("Laura", "Bendhaiba", role = "aut", email="laurabendhaiba@gmail.com"),
              person("Julien", "Boelaert", role= "aut", email="julien.boelaert@gmail.com"),
              person("Madalina", "Olteanu", role = "aut", email="madalina.olteanu@univ-paris1.fr"),
              person("Nathalie", "Villa-Vialaneix", role = c("aut", "cre"), email="nathalie.villa@toulouse.inra.fr"))
 Maintainer: Nathalie Villa-Vialaneix <nathalie.villa@toulouse.inra.fr>
-Description: SOMbrero provides an implementation of the stochastic (also called
-             on-line) Self-Organising Map (SOM) algorithm for numeric and
-             relational data
+Description: The stochastic (also called on-line) version of the Self-Organising
+             Map (SOM) algorithm is provided. Different versions of the 
+             algorithm are implemented, for numeric and relational data and for
+             contingency tables. The package also contains many plotting 
+             features (to help the user interpret the results) and a graphical
+             user interface based on shiny (which is also available on-line at
+             http://shiny.nathalievilla.org/sombrero).
 Depends: R (>= 3.0), knitr, igraph (>= 0.6)
 Imports: wordcloud, scatterplot3d, RColorBrewer, shiny
 License: GPL (>= 2)
-URL: http://sombrero.r-forge.r-project.org/
-Repository: R-Forge
+Repository: CRAN
 VignetteBuilder: knitr

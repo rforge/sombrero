@@ -9,7 +9,6 @@ citEntry(
   author = as.person(meta$Author),
   year = year,
   note = vers,
-  url = meta$URL,
   textVersion = paste('Villa-Vialaneix N., Bendhaiba L., Olteanu M. (', year, ') SOMbrero: ', meta$Title, '. ', vers, '.', sep = '')
 )
 
@@ -22,7 +21,7 @@ citEntry(
   volume = '147',
   pages = '15--30',
 
-  textVersion = paste('Olteanu M., Villa-Vialaneix N. (2013)',
+  textVersion = paste('Olteanu M., Villa-Vialaneix N. (2015)',
                 'On-line relational and multiple relational SOM.',
                 'Neurocomputing, 147, 15-30')
 )

@@ -18,10 +18,10 @@ parameters given to the algorithm (see \code{\link{initSOM}} and
 \tabular{ll}{
 Package: \tab SOMbrero\cr
 Type: \tab Package\cr
-Version: \tab 0.5\cr
-Date: \tab 2014-12-27\cr
+Version: \tab 1.0\cr
+Date: \tab 2015-03-27\cr
 License: \tab GPL (>= 2)\cr
-URL: \tab \url{http://sombrero.r-forge.r-project.org/} \cr
+Shiny online interface: \url{http://shiny.nathalievilla.org}
 }
 The version of the SOM algorithm implemented in this package is the stochastic
 version.
@@ -29,7 +29,8 @@ version.
 Several variants able to handle non-vectorial data are also implemented in their
 stochastic versions: \code{type="korresp"} for contingency tables, as described
 in Cottrel et al., 1993 and \code{type="relational"} for dissimilarity data, as
-described in Olteanu and Villa-Vialaneix, 2015.
+described in Olteanu and Villa-Vialaneix, 2015a. A special focus has been put
+on representing graphs, as described in Olteanu and Villa-Vialaneix, 2015b.
 }
 
 \author{Laura Bendhaiba \email{laurabendhaiba@gmail.com}
@@ -55,8 +56,15 @@ Letremy, P. (2005) Programmes bases sur l'algorithme de Kohonen et dedies a
 l'analyse des donnees. SAS/IML programs for 'korresp'.
 \url{http://samos.univ-paris1.fr/Programmes-bases-sur-l-algorithme}.
 
-Olteanu, M., Villa-Vialaneix, N. (2015) On-line relational and multiple
+Olteanu, M., Villa-Vialaneix, N. (2015a) On-line relational and multiple
 relational SOM. \emph{Neurocomputing}, \strong{147}, 15-30. 
+
+Olteanu, M., Villa-Vialaneix, N. (2015b) Using SOMbrero for clustering and 
+visualizing graphs. \emph{Journal de la Societe Francaise de Statistique}.
+\emph{Under revision}.
+
+Rossi, F. (2013) yasomi: Yet Another Self-Organising Map Implementation. R 
+package, version 0.3. \url{https://github.com/fabrice-rossi/yasomi}
 }
 \seealso{
 \code{\link{initGrid}}, \code{\link{trainSOM}}, \code{\link{plot.somRes}} and
